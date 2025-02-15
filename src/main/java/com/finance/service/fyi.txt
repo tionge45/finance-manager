@@ -1,0 +1,2 @@
+Implements business logic
+(e.g., budget calculations, data filtering).

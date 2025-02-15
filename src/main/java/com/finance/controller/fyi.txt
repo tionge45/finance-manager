@@ -1,0 +1,1 @@
+ Manages user interactions and UI logic.
