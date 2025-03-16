@@ -1,34 +1,40 @@
 package com.finance.model;
 
-
 import java.util.Objects;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
 
-    private final int _id;
-    private final String _username;
-    private final String _email;
-    private final String _hashedPasswords;
+    private int userID;
+    private String userName;
+    private String userEmail;
+    private String userPassword;
 
-    public User(int id, String username, String email,
-                String hashedPasswords){
-        this._id = id;
-        this._username = username;
-        this._email = email;
-        _hashedPasswords = hashedPasswords;
+
+    public User(int userID, String userName, String userEmail, String userPassword){
+
+        this.userID = userID;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+
     }
 
-    public int get_id() {
-        return _id;
+    public User(){};
+
+    public int getUserID() {
+        return userID;
     }
 
-    public String get_username() {
-        return _username;
+    public String getUserName() {
+        return userName;
     }
 
-    public String get_email() {
-        return _email;
+    public String getUserEmail() {
+        return userEmail;
     }
+
+    public String getUserPassword() {return userPassword;}
 
     @Override
     public boolean equals(Object obj){
@@ -37,13 +43,21 @@ public class User {
 
         User user = (User) obj;
 
-        return (Objects.equals(_email, user._email) || Objects.equals(_id, user._id));
+        return (Objects.equals(userEmail, user.userEmail) || Objects.equals(userID, user.userID));
     }
 
     @Override
     public String toString(){
 
-        return "Username: " + this._username + " Email: "
-                + this._email + " ID: " + this._id;
+        return "Username: " + this.getUserName() + " Email: "
+                + this.getUserEmail() + " ID: " + this.getUserID();
+    }
+
+    public void setPassword(String userPassword) {
+        this.userPassword = PasswordUtils.hashPassword(userPassword);
+    }
+
+    public boolean verifyPassword(String inputPassword) {
+        return PasswordUtils.checkPassword(inputPassword, this.userPassword );
     }
 }

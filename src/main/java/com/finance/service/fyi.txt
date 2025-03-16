@@ -1,2 +1,8 @@
 Implements business logic
 (e.g., budget calculations, data filtering).
+
+Would be best to CREATE A UserService Interface
+
+The same for Transaction,
+Income,
+Expense

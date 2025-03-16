@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class FinanceDatabase {
-    private static final String URL = "jdbc:mysql://localhost:3306/financeDb";
+    private static final String URL = "jdbc:mysql://localhost:3306/financedb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
     private static Connection connection = null;
@@ -19,10 +19,12 @@ public class FinanceDatabase {
     }
     public static void createTables(){
         String usersTable = "CREATE TABLE IF NOT EXISTS Users ("
-                + "userLogin VARCHAR(50) PRIMARY KEY," // could be a phone number
-                + "userPassword VARCHAR(255) NOT NULL,"
-                + "accountName VARCHAR(255) NOT NULL"
+                + "userID VARCHAR(50) PRIMARY KEY," // could be a phone number
+                + "userName VARCHAR(255) NOT NULL,"
+                + "hashedPassword VARCHAR(255) NOT NULL,"
+                + "userEmail VARCHAR(255) NOT NULL UNIQUE"
                 + ")";
+
         String transactionTable = "CREATE TABLE IF NOT EXISTS transactions ("
                 +"transactionID INT AUTO_INCREMENT PRIMARY KEY,"
                 +"transactionName VARCHAR(255) NOT NULL,"
@@ -30,16 +32,18 @@ public class FinanceDatabase {
                 +"description TEXT,"
                 +"transactionDate DATE NOT NULL,"
                 +"transactionTime TIME NOT NULL,"
-                +"userLogin VARCHAR(50),"
-                +"FOREIGN KEY (userLogin) REFERENCES Users(userLogin) ON DELETE CASCADE"
+                +"userID VARCHAR(50),"
+                +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 +")";
+
         String incomeTable = "CREATE TABLE IF NOT EXISTS income("
                 +"incomeID INT AUTO_INCREMENT PRIMARY KEY,"
                 +"business DECIMAL(10,2) DEFAULT 0.00,"
                 +"salary DECIMAL(10,2) DEFAULT 0.00,"
-                +"userLogin VARCHAR(50),"
-                +"FOREIGN KEY (userLogin) REFERENCES Users(userLogin) ON DELETE CASCADE"
+                +"userID VARCHAR(50),"
+                +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 + ")";
+
         String expenseTable = "CREATE TABLE IF NOT EXISTS expense ("
                 +"expenseID INT AUTO_INCREMENT PRIMARY KEY,"
                 +"groceries DECIMAL(10,2) DEFAULT 0.00,"
@@ -47,9 +51,10 @@ public class FinanceDatabase {
                 +"debt DECIMAL(10,2) DEFAULT 0.00,"
                 +"health DECIMAL(10,2) DEFAULT 0.00,"
                 +"transportation DECIMAL(10,2) DEFAULT 0.00,"
-                +"userLogin VARCHAR(50),"
-                +"FOREIGN KEY (userLogin) REFERENCES Users(userLogin) ON DELETE CASCADE"
+                +"userID VARCHAR(50),"
+                +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 + ")";
+
         try (Connection conn = getConnection();
              Statement statement = conn.createStatement()){
             statement.execute(usersTable);
@@ -68,8 +73,6 @@ public class FinanceDatabase {
             e.printStackTrace();;
         }
     }
-    public static void main(String[] args){
-        createTables();
-    }
+
 
 }
