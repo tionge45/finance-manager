@@ -31,6 +31,7 @@ public class UserDAO {
             throw new IllegalArgumentException("User with ID " + userID + " already exists.");
         }
 
+
         FinanceDatabase.createTables();
 
         String hashedPassword = PasswordUtils.hashPassword(rawPassword);

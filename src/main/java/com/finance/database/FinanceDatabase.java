@@ -17,6 +17,7 @@ public class FinanceDatabase {
       }
       return connection;
     }
+
     public static void createTables(){
         String usersTable = "CREATE TABLE IF NOT EXISTS Users ("
                 + "userID VARCHAR(50) PRIMARY KEY," // could be a phone number
