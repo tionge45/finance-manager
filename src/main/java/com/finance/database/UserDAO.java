@@ -16,33 +16,31 @@ public class UserDAO {
         this.connection = connection;
     }
 
-    //adds new User to Users table
-    public void addUser(String userID, String userName, String userEmail, String rawPassword) throws SQLException {
+    private boolean isValidEmail(String email) {
+        return email.matches("^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\\.[a-zA-Z]{2,}$");
+    }
 
-        if (userID == null || userID.isEmpty() ||
-                userName == null || userName.isEmpty() ||
+
+    //adds new User to Users table
+    public void addUser(String userName, String userEmail, String rawPassword) throws SQLException {
+
+        if (userName == null || userName.isEmpty() ||
                 rawPassword == null || rawPassword.isEmpty() ||
                 userEmail == null || userEmail.isEmpty()) {
             throw new IllegalArgumentException
                     ("All fields must be non-null and non-empty.");
         }
-
-        if (getUserByUserID(userID) != null) {
-            throw new IllegalArgumentException("User with ID " + userID + " already exists.");
+        if (!isValidEmail(userEmail)){
+            throw new IllegalArgumentException("Invalid email format");
         }
 
-
-        FinanceDatabase.createTables();
-
         String hashedPassword = PasswordUtils.hashPassword(rawPassword);
-        String query = "INSERT INTO Users(userID, userName, hashedPassword, userEmail) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Users(userName, hashedPassword, userEmail) VALUES (?, ?, ?)";
 
-        try (Connection conn = FinanceDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, userID);
-            ps.setString(2, userName);
-            ps.setString(3, hashedPassword);
-            ps.setString(4, userEmail);
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, userName);
+            ps.setString(2, hashedPassword);
+            ps.setString(3, userEmail);
             ps.executeUpdate();
         } catch (SQLException e) {
             if (e.getSQLState().equals("23000")) {
@@ -64,7 +62,6 @@ public class UserDAO {
 
             if (rs.next()) {
                 return new User(
-                        rs.getInt("userID"),
                         rs.getString("userName"),
                         rs.getString("hashedPassword"),
                         rs.getString("userEmail")
@@ -137,8 +134,7 @@ public class UserDAO {
     public void updateUserName(String userEmail, String newUserName) {
         String updateQuery = "UPDATE Users SET userName = ? WHERE userEmail = ?";
 
-        try (Connection conn = FinanceDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(updateQuery)) {
+        try (PreparedStatement ps = connection.prepareStatement(updateQuery)) {
             ps.setString(1, newUserName);
             ps.setString(2, userEmail);
 
@@ -158,8 +154,7 @@ public class UserDAO {
         String selectQuery = "SELECT hashedPassword FROM Users WHERE userEmail = ?";
         String deleteQuery = "DELETE FROM Users WHERE userEmail = ?";
 
-        try (Connection conn = FinanceDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(selectQuery)) {
+        try (PreparedStatement ps = connection.prepareStatement(selectQuery)) {
             ps.setString(1, userEmail);
 
             ResultSet rs = ps.executeQuery();
@@ -171,7 +166,7 @@ public class UserDAO {
                     return;
                 }
 
-                try (PreparedStatement deletePS = conn.prepareStatement(deleteQuery)) {
+                try (PreparedStatement deletePS = connection.prepareStatement(deleteQuery)) {
                     deletePS.setString(1, userEmail);
                     int rows = deletePS.executeUpdate();
 

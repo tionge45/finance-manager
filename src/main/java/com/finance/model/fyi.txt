@@ -1,1 +1,1 @@
- Defines entities such as User, Transaction.
+ Defines entities such as User, Transaction, Income, Budget, Expense.
