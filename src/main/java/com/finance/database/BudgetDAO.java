@@ -104,7 +104,7 @@ public class BudgetDAO {
 
 
     public static void checkBudgetStatus(int goalID) {
-        String sql = "SELECT budgetAmount, currentExpenses FROM budget_goals WHERE goalID = ?";
+        String sql = "SELECT  budgetAmount, currentExpenses FROM budget_goals WHERE goalID = ?";
         try (Connection conn = FinanceDatabase.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, goalID);

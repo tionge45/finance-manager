@@ -1,13 +1,14 @@
 package com.finance.database;
 
-import com.finance.model.Budget;
 import com.finance.model.Expense;
+import com.finance.model.Transaction;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExpenseDAO {
+public class ExpenseDAO implements Transactionable {
 
     private Connection connection;
 
@@ -15,47 +16,80 @@ public class ExpenseDAO {
         this.connection = connection;
     }
 
-    public static void insertExpense(String userLogin, String category, double amount, String description, Date expenseDate, Time expenseTime ){
-        String sql = "INSERT INTO expenseTable(userLogin, category, amount, description, expenseDate, expenseTime) VALUES (?,?,?,?,?,?)";
-        try (Connection conn = FinanceDatabase.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setString(1, userLogin);
-            pstmt.setString(2, category);
-            pstmt.setDouble(3, amount);
-            pstmt.setString(4, description);
-            pstmt.setDate(5, expenseDate);
-            pstmt.setTime(6, expenseTime);
 
-            pstmt.executeUpdate();
+    @Override
+    public void insertTransaction(Transaction transaction, String userEmail) {
+        Expense expense = (Expense) transaction;
 
-            Budget.addToCurrentExpenses(userLogin, category, amount);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-    public static List<Expense> getExpenses(String userLogin) {
-        List<Expense> expenses = new ArrayList<>();
-        String sql = "SELECT * FROM expenseTable WHERE userLogin = ?";
+        String getUserIdQuery = "SELECT userID FROM Users WHERE userEmail = ?";
+        String insertQuery = "INSERT INTO transactions(type, category, amount, description, userID) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = FinanceDatabase.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userLogin);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                expenses.add(new Expense(
-                        rs.getInt("expenseID"),
-                        rs.getString("userLogin"),
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description"),
-                        rs.getDate("expenseDate"),
-                        rs.getTime("expenseTime")
-                ));
+        try(
+            PreparedStatement userIdStmt = connection.prepareStatement(getUserIdQuery);
+            PreparedStatement insertStmt = connection.prepareStatement(insertQuery)
+        ){
+            userIdStmt.setString(1, userEmail);
+            ResultSet rs = userIdStmt.executeQuery();
+            if(rs.next()){
+                int userID = rs.getInt("userID");
+
+
+                insertStmt.setString(1, "Expense");
+                insertStmt.setString(2, expense.getCategory());
+                insertStmt.setDouble(3,expense.getAmount());
+                insertStmt.setString(4, expense.getDescription());
+                insertStmt.setInt(5, userID);
+
+                insertStmt.executeUpdate();
+                System.out.println("Expense inserted successfully.");
+
+            } else {
+                System.out.println("User not found. Expense not inserted.");
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Failed to insert expense");
         }
-        return expenses;
+
+
     }
+
+    @Override
+    public List<Transaction> getTransactionByUser(String userEmail) throws SQLException {
+
+        List<Transaction> expenses = new ArrayList<>();
+
+        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp" +
+                " FROM transactions t " +
+                "JOIN Users u ON t.userID = u.userID " +
+                "WHERE u.userEmail = ? " +
+                "AND t.type = 'Expense' " +
+                "ORDER BY t.transaction_timestamp DESC";
+
+        try(PreparedStatement ps = connection.prepareStatement(getQuery)){
+            ps.setString(1, userEmail);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+
+                String category = rs.getString("category");
+                double amount = rs.getDouble( "amount");
+                String description = rs.getString("description");
+                Timestamp timestamp = rs.getTimestamp("transaction_timestamp");
+
+                Expense expense = new Expense(category, amount, description);
+                if (timestamp != null) {
+                    expense.setTimestamp(timestamp.toLocalDateTime());
+                }
+
+                expenses.add(expense);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return expenses;
+
+    }
+
 }

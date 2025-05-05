@@ -6,12 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import java.net.URL?>
+
+<StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.finance.controller.SignInController"
             prefHeight="400.0" prefWidth="600.0">
 
-    <GridPane alignment="CENTER" hgap="10" vgap="10" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="150.0">
+    <stylesheets>
+        <URL value="@css/styles.css"/>
+    </stylesheets>
+
+    <GridPane alignment="CENTER" hgap="10" vgap="10">
         <Label text="Sign In" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
         <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
@@ -28,4 +34,4 @@
     </GridPane>
 
 
-</AnchorPane>
+</StackPane>

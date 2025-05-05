@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.finance.controller.LoadingController"
+            prefWidth="600" prefHeight="400">
+
+    <stylesheets>
+        <URL value="@css/styles.css"/>
+    </stylesheets>
+
+    <VBox alignment="CENTER" spacing="20.0" layoutX="100" layoutY="150" prefWidth="400" prefHeight="100">
+        <Label text="Loading Finance Manager..." />
+        <ProgressBar fx:id="progressBar" prefWidth="300"/>
+    </VBox>
+</AnchorPane>

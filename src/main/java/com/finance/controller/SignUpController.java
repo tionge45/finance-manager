@@ -2,16 +2,13 @@ package com.finance.controller;
 
 import com.finance.database.FinanceDatabase;
 import com.finance.database.UserDAO;
+import com.finance.model.User;
+import com.finance.service.UserSessionSingleton;
 import com.finance.utils.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,16 +16,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class SignUpController implements Initializable {
+public class SignUpController implements Initializable{
 
-
-    public TextField usernameField;
-    public Button signInButton;
     @FXML
-    private TextField emailField;
+    private TextField usernameField, emailField;
+    @FXML
+    private Button signInButton, signUpBotton;
     @FXML
     private PasswordField passwordField, confirmPasswordField;
-    @FXML private Button signUpBotton;
     @FXML private Label statusLabel;
 
     private Connection connection;
@@ -46,7 +41,7 @@ public class SignUpController implements Initializable {
             showAlert("Error", "All fields must be filled.");
             return;
         }
-        if (!email.matches("^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\\.[a-zA-Z]{2,}$")) {
+        if (userDAO.isValidEmail(email)) {
             showAlert("Error", "Invalid email format.");
             return;
         }
@@ -55,14 +50,14 @@ public class SignUpController implements Initializable {
             return;
         }
         try {
-            connection = FinanceDatabase.getConnection();
-            userDAO = new UserDAO(connection);
             userDAO.addUser(username, email, password);
             showAlert("Success", "Account created successfully!");
 
             userDAO = new UserDAO(connection);
             boolean authenticated = userDAO.authenticateUser(email, password);
             if (authenticated){
+                User user = userDAO.getUserByEmail(email);
+                UserSessionSingleton.setLoggedInUser(user);
                 goToDashboard();
             }
         } catch (SQLException e) {
@@ -73,7 +68,7 @@ public class SignUpController implements Initializable {
     }
 
     private void goToDashboard() throws IOException {
-        SceneSwitcher.switchScene(signUpBotton, "/fxml/dashboard.fxml");
+        SceneSwitcher.loadMainApp();
     }
 
     private void showAlert(String title, String message) {
@@ -99,7 +94,7 @@ public class SignUpController implements Initializable {
     @FXML
     private void goToSignIn(ActionEvent event) {
         try {
-            SceneSwitcher.switchScene((Node) event.getSource(), "/fxml/signin.fxml");
+            SceneSwitcher.switchScene((Control) event.getSource(), "/fxml/signin.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
