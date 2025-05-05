@@ -1,4 +1,3 @@
 Handles database connections,
 CRUD operations
-and
 SQL execution.

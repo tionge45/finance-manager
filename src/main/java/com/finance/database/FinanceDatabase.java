@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class FinanceDatabase {
     private static final String URL = "jdbc:mysql://localhost:3306/financedb";
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "2004";
     private static Connection connection = null;
 
     public static Connection getConnection() throws SQLException{
@@ -19,8 +19,9 @@ public class FinanceDatabase {
     }
 
     public static void createTables(){
+
         String usersTable = "CREATE TABLE IF NOT EXISTS Users ("
-                + "userID VARCHAR(50) PRIMARY KEY," // could be a phone number
+                + "userID INT AUTO_INCREMENT PRIMARY KEY,"
                 + "userName VARCHAR(255) NOT NULL,"
                 + "hashedPassword VARCHAR(255) NOT NULL,"
                 + "userEmail VARCHAR(255) NOT NULL UNIQUE"
@@ -33,7 +34,7 @@ public class FinanceDatabase {
                 +"description TEXT,"
                 +"transactionDate DATE NOT NULL,"
                 +"transactionTime TIME NOT NULL,"
-                +"userID VARCHAR(50),"
+                +"userID INT,"
                 +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 +")";
 
@@ -41,7 +42,7 @@ public class FinanceDatabase {
                 +"incomeID INT AUTO_INCREMENT PRIMARY KEY,"
                 +"business DECIMAL(10,2) DEFAULT 0.00,"
                 +"salary DECIMAL(10,2) DEFAULT 0.00,"
-                +"userID VARCHAR(50),"
+                +"userID INT,"
                 +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 + ")";
 
@@ -52,7 +53,7 @@ public class FinanceDatabase {
                 +"debt DECIMAL(10,2) DEFAULT 0.00,"
                 +"health DECIMAL(10,2) DEFAULT 0.00,"
                 +"transportation DECIMAL(10,2) DEFAULT 0.00,"
-                +"userID VARCHAR(50),"
+                +"userID INT,"
                 +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 + ")";
 

@@ -1,57 +1,37 @@
 package com.finance.model;
 
 import java.util.Objects;
+
+import lombok.Getter;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
-
-    private int userID;
+    @Getter
     private String userName;
+    @Getter
     private String userEmail;
     private String userPassword;
 
-
-    public User(int userID, String userName, String userEmail, String userPassword){
-
-        this.userID = userID;
+    public User(String userName, String userEmail, String userPassword){
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-
     }
 
     public User(){};
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public String getUserPassword() {return userPassword;}
 
     @Override
     public boolean equals(Object obj){
         if(this == obj) return true;
         if(obj == null || this.getClass() != obj.getClass()) return false;
-
         User user = (User) obj;
-
-        return (Objects.equals(userEmail, user.userEmail) || Objects.equals(userID, user.userID));
+        return (Objects.equals(userEmail, user.userEmail));
     }
-
 
     @Override
     public String toString(){
-
         return "Username: " + this.getUserName() + " Email: "
-                + this.getUserEmail() + " ID: " + this.getUserID();
+                + this.getUserEmail() ;
     }
 
     public void setPassword(String userPassword) {
@@ -61,4 +41,5 @@ public class User {
     public boolean verifyPassword(String inputPassword) {
         return PasswordUtils.checkPassword(inputPassword, this.userPassword );
     }
+
 }

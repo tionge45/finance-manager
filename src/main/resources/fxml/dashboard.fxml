@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.finance.controller.DashboardController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox alignment="CENTER" spacing="20.0" layoutX="100" layoutY="50" prefWidth="400" prefHeight="300">
+        <Label fx:id="incomeLabel" text="Total Income:" style="-fx-font-size: 16px;" />
+        <Label fx:id="expenseLabel" text="Total Expenses:" style="-fx-font-size: 16px;" />
+        <Label fx:id="budgetLabel" text="Budget Left:" style="-fx-font-size: 16px;" />
+
+        <Hyperlink fx:id="logOutLabel" text="Log Out" onAction="#handleLogout" layoutX="10" layoutY="10"/>
+
+    </VBox>
+
+</AnchorPane>
+
