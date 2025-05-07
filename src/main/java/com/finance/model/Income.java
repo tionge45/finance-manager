@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 
 public class Income extends Transaction {
 
-    private String source; //a.k.a category => Business, Salary, etc
+    private String category; //a.k.a category => Business, Salary, etc
     private double amount;
     private String description;
 
-    public Income(String source, double amount, String description) {
-        this.source = source;
+    public Income(String category, double amount, String description) {
+        this.category = category;
         this.amount = amount;
         this.description = description;
     }

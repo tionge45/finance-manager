@@ -31,7 +31,7 @@
         <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
         <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-        <Button text="Sign Up" fx:id="signUpBotton" onAction="#handleSignUp" GridPane.columnIndex="1"
+        <Button text="Sign Up" fx:id="signUpButton" onAction="#handleSignUp" GridPane.columnIndex="1"
                 GridPane.rowIndex="5"/>
 
         <Hyperlink text="Log in instead" onAction="#goToSignIn" layoutX="200" layoutY="250"/>

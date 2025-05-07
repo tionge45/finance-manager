@@ -20,7 +20,7 @@ public abstract class Transaction {
 
     protected LocalDateTime timestamp;
 
-    protected abstract String getType();
+    public abstract String getType();
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;

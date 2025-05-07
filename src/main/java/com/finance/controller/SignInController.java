@@ -25,7 +25,6 @@ public class SignInController {
     Connection connection = FinanceDatabase.getConnection();
 
     private final UserDAO userDAO = new UserDAO(connection);
-    private final DashboardController dashboardController = new DashboardController();
     private final ActionEvent event = new ActionEvent();
 
     public SignInController() throws SQLException {
@@ -46,6 +45,7 @@ public class SignInController {
             User user = userDAO.getUserByEmail(email);
             showAlert("Success", "Login successful!");
             UserSessionSingleton.setLoggedInUser(user);
+            System.out.println("Setting logged-in user to: " + user.getUserEmail());
             goToDashboard();
 
             } else {

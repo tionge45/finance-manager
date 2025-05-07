@@ -3,11 +3,12 @@ package com.finance.model;
 import java.util.Objects;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 public class User {
-    @Getter
+
     private String userName;
-    @Getter
     private String userEmail;
     private String userPassword;
 
@@ -39,6 +40,14 @@ public class User {
 
     public boolean verifyPassword(String inputPassword) {
         return PasswordUtils.checkPassword(inputPassword, this.userPassword );
+    }
+
+    public String getUserEmail(){
+        return userEmail;
+    }
+
+    public String getUserName(){
+        return userName;
     }
 
 }
