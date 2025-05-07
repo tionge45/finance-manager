@@ -6,15 +6,20 @@ import com.finance.model.Transaction;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
+
 
 
 public class IncomeDAO implements Transactionable {
 
-    private Connection connection;
+    private final Connection connection;
 
     public IncomeDAO(Connection connection){
         this.connection = connection;
     }
+
+    private static final Logger LOGGER = Logger.getLogger(IncomeDAO.class.getName());
 
 
     @Override
@@ -22,7 +27,7 @@ public class IncomeDAO implements Transactionable {
         Income income = (Income) transaction;
 
         String getUserIdQuery = "SELECT userID FROM Users WHERE userEmail = ?";
-        String insertQuery = "INSERT INTO transactions(type, category, amount, description, userID) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO transactions(type, category, amount, description, userID) VALUES (?, ?, ?, ?, ?)";
 
         try(
             PreparedStatement userIdStmt = connection.prepareStatement(getUserIdQuery);
@@ -34,13 +39,14 @@ public class IncomeDAO implements Transactionable {
                 int userID = rs.getInt("userID");
 
                 insertStmt.setString(1, "Income");
-                insertStmt.setString(2, income.getSource());
+                insertStmt.setString(2, income.getCategory());
                 insertStmt.setDouble(3, income.getAmount());
                 insertStmt.setString(4, income.getDescription());
                 insertStmt.setInt(5, userID);
 
                 insertStmt.executeUpdate();
-                System.out.println("Income inserted successfully.");
+                LOGGER.info("Income inserted successfully.");
+                System.out.println("Inserted income for: " + userEmail);
 
 
             } else {
@@ -69,17 +75,19 @@ public class IncomeDAO implements Transactionable {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
 
-                String source = rs.getString("category");
+                String category = rs.getString("category");
                 double amount = rs.getDouble( "amount");
                 String description = rs.getString("description");
                 Timestamp timestamp = rs.getTimestamp("transaction_timestamp");
 
-                Income userIncome = new Income(source, amount, description);
+                Income userIncome = new Income(category, amount, description);
                 if (timestamp != null) {
                     userIncome.setTimestamp(timestamp.toLocalDateTime());
                 }
 
                 income.add(userIncome);
+                System.out.println("Fetched " + income.size() + " incomes for " + userEmail);
+
             }
         } catch(SQLException e){
             e.printStackTrace();

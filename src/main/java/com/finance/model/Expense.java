@@ -3,10 +3,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.jetbrains.annotations.Nullable;
 
-import java.math.BigDecimal;
-import java.sql.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,17 +12,17 @@ import java.time.LocalDateTime;
 public class Expense extends Transaction {
     private String category;
     private double amount;
+    @Nullable
     private String description;
 
-    public Expense(String _category, double _amount, String _description){
+    public Expense(String _category, double _amount, @Nullable String  _description){
         this.category = _category;
         this.amount = _amount;
         this.description = _description;
-
     }
 
     @Override
-    protected String getType() {
+    public String getType() {
         return "Expense";
     }
 }

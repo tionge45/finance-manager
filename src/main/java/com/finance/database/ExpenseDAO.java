@@ -6,6 +6,8 @@ import com.finance.model.Transaction;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 
 public class ExpenseDAO implements Transactionable {
@@ -16,13 +18,14 @@ public class ExpenseDAO implements Transactionable {
         this.connection = connection;
     }
 
+    private static final Logger LOGGER = Logger.getLogger(ExpenseDAO.class.getName());
 
     @Override
     public void insertTransaction(Transaction transaction, String userEmail) {
         Expense expense = (Expense) transaction;
 
         String getUserIdQuery = "SELECT userID FROM Users WHERE userEmail = ?";
-        String insertQuery = "INSERT INTO transactions(type, category, amount, description, userID) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO transactions(type, category, amount, description, userID) VALUES (?, ?, ?, ?, ?)";
 
         try(
             PreparedStatement userIdStmt = connection.prepareStatement(getUserIdQuery);
@@ -37,19 +40,20 @@ public class ExpenseDAO implements Transactionable {
                 insertStmt.setString(1, "Expense");
                 insertStmt.setString(2, expense.getCategory());
                 insertStmt.setDouble(3,expense.getAmount());
-                insertStmt.setString(4, expense.getDescription());
+                insertStmt.setString(4, String.valueOf(expense.getDescription()));
                 insertStmt.setInt(5, userID);
 
                 insertStmt.executeUpdate();
-                System.out.println("Expense inserted successfully.");
+                LOGGER.info("Expense inserted successfully.");
+                System.out.println("Inserted expense for: " + userEmail);
 
             } else {
-                System.out.println("User not found. Expense not inserted.");
+                LOGGER.info("User not found. Expense not inserted.");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to insert expense");
+            LOGGER.info("Failed to insert expense");
         }
 
 
@@ -60,7 +64,7 @@ public class ExpenseDAO implements Transactionable {
 
         List<Transaction> expenses = new ArrayList<>();
 
-        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp" +
+        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp, t.description" +
                 " FROM transactions t " +
                 "JOIN Users u ON t.userID = u.userID " +
                 "WHERE u.userEmail = ? " +
@@ -77,12 +81,15 @@ public class ExpenseDAO implements Transactionable {
                 String description = rs.getString("description");
                 Timestamp timestamp = rs.getTimestamp("transaction_timestamp");
 
+
                 Expense expense = new Expense(category, amount, description);
                 if (timestamp != null) {
                     expense.setTimestamp(timestamp.toLocalDateTime());
                 }
 
                 expenses.add(expense);
+                System.out.println("Fetched " + expenses.size() + " expenses for " + userEmail);
+
             }
         } catch(SQLException e){
             e.printStackTrace();

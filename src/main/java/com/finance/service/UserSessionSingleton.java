@@ -10,6 +10,7 @@ public class UserSessionSingleton {
     private String currentScreen;
 
     private UserSessionSingleton(){}
+
     private static UserSessionSingleton userSessionSingleton = null;
 
     public static void setLoggedInUser(User user){
@@ -32,11 +33,10 @@ public class UserSessionSingleton {
         this.currentScreen = currentScreen;
     }
 
-    public static UserSessionSingleton getInstance(){
+    public static void getInstance(){
         if (userSessionSingleton == null) {
             userSessionSingleton = new UserSessionSingleton();
         }
-        return userSessionSingleton;
 
     }
 
