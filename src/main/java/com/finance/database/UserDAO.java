@@ -16,8 +16,8 @@ public class UserDAO {
         this.connection = connection;
     }
 
-    private boolean isValidEmail(String email) {
-        return email.matches("^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\\.[a-zA-Z]{2,}$");
+    public boolean isValidEmail(String email) {
+        return !email.matches("^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\\.[a-zA-Z]{2,}$");
     }
 
 
@@ -30,7 +30,7 @@ public class UserDAO {
             throw new IllegalArgumentException
                     ("All fields must be non-null and non-empty.");
         }
-        if (!isValidEmail(userEmail)){
+        if (isValidEmail(userEmail)){
             throw new IllegalArgumentException("Invalid email format");
         }
 
@@ -52,12 +52,12 @@ public class UserDAO {
         }
     }
 
-    //searches for User by Login
-    public User getUserByUserID(String userID) throws SQLException {
-        String query = "SELECT userID, userName, hashedPassword, userEmail FROM Users WHERE userID = ?";
+    //searches for User by Email
+    public User getUserByEmail(String userEmail) throws SQLException {
+        String query = "SELECT userID, userName, hashedPassword, userEmail FROM Users WHERE userEmail = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, userID);
+            ps.setString(1, userEmail);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -72,14 +72,7 @@ public class UserDAO {
     }
 
 
-    /*
-    User provides unique email and password
-    Database checks against those credentials
-    (Checks if such a user with those two unique credentials exist)
-    If true, grants access to user profile
-    Profile can have username, email, age, and picture(FOR NOW)
 
-     */
     public boolean authenticateUser(String userEmail, String rawPassword) {
         String query = "SELECT hashedPassword FROM Users WHERE userEmail = ?";
 

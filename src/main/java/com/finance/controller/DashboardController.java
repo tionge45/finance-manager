@@ -1,28 +1,91 @@
 package com.finance.controller;
 
+import com.finance.model.User;
+import com.finance.service.UserSessionSingleton;
 import com.finance.utils.SceneSwitcher;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class DashboardController {
 
+
     @FXML
-    private Label incomeLabel, expenseLabel, budgetLabel;
+    private Button sideBarBtn;
     @FXML
-    private Hyperlink logOutLabel;
+    private Label totalBudgetLabel;
+    @FXML
+    private Label totalSpentLabel;
+    @FXML
+    private Label totalIncomeLabel;
+
+    @FXML
+    private LineChart<Number, Number> totalBudgetGraph;
+    @FXML
+    private LineChart<Number, Number> totalSpentGraph;
+    @FXML
+    private LineChart<Number, Number> totalIncomeGraph;
+
+    @FXML
+    private TableView<?> transactionTable;
+    @FXML
+    private TableColumn<?, ?> transactionDateColumn;
+    @FXML
+    private TableColumn<?, ?> transactionTypeColumn;
+    @FXML
+    private TableColumn<?, ?> transactionAmountColumn;
+    @FXML
+    private TableColumn<?, ?> transactionCategoryColumn;
+
+    @FXML
+    private TextField transactionAmountField;
+    @FXML
+    private TextField transactionCategoryField;
+    @FXML
+    private ChoiceBox<String> transactionTypeBox;
+    private SideBarController sideBarController;
+    @FXML
+    private BorderPane sideBarInclude;
 
 
+    @FXML
     public void initialize() {
-        incomeLabel.setText("Total Income: $0");
-        expenseLabel.setText("Total Expenses: $0");
-        budgetLabel.setText("Budget Left: $0");
+        transactionTypeBox.setItems(FXCollections.observableArrayList("Income", "Expense"));
+
+        XYChart.Series<Number, Number> spentSeries = new XYChart.Series<>();
+        spentSeries.setName("Spent");
+        spentSeries.getData().add(new XYChart.Data<>(1, 200));
+        spentSeries.getData().add(new XYChart.Data<>(2, 250));
+        totalSpentGraph.getData().add(spentSeries);
+
     }
 
-    public void handleLogout() throws IOException {
-        SceneSwitcher.switchScene(logOutLabel, "/fxml/welcome.fxml");
+    public void setSideBarController(SideBarController sideBarController) {
+        this.sideBarController = sideBarController;
+        sideBarController.welcomeMessage();
+    }
+
+    public void handleAddTransaction(ActionEvent event) {
+    }
+
+
+    @FXML
+    private void handleToggleSidebar() {
+        if (sideBarController != null) {
+            sideBarController.toggleSidebar();
+        }
     }
 }
+
+
+
+

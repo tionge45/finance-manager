@@ -29,33 +29,16 @@ public class FinanceDatabase {
 
         String transactionTable = "CREATE TABLE IF NOT EXISTS transactions ("
                 +"transactionID INT AUTO_INCREMENT PRIMARY KEY,"
-                +"transactionName VARCHAR(255) NOT NULL,"
-                +"amount DECIMAL (20,2),"
+                +"type ENUM('Income', 'Expense') NOT NULL,"
+                +"category VARCHAR(255),"
+                +"amount DOUBLE PRECISION,"
                 +"description TEXT,"
-                +"transactionDate DATE NOT NULL,"
-                +"transactionTime TIME NOT NULL,"
+                +"transaction_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP," // For extraction => DATE(transaction_timestamp) or TIME(transaction_timestamp).
                 +"userID INT,"
                 +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 +")";
 
-        String incomeTable = "CREATE TABLE IF NOT EXISTS income("
-                +"incomeID INT AUTO_INCREMENT PRIMARY KEY,"
-                +"business DECIMAL(10,2) DEFAULT 0.00,"
-                +"salary DECIMAL(10,2) DEFAULT 0.00,"
-                +"userID INT,"
-                +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
-                + ")";
 
-        String expenseTable = "CREATE TABLE IF NOT EXISTS expense ("
-                +"expenseID INT AUTO_INCREMENT PRIMARY KEY,"
-                +"groceries DECIMAL(10,2) DEFAULT 0.00,"
-                +"utilities DECIMAL(10,2) DEFAULT 0.00,"
-                +"debt DECIMAL(10,2) DEFAULT 0.00,"
-                +"health DECIMAL(10,2) DEFAULT 0.00,"
-                +"transportation DECIMAL(10,2) DEFAULT 0.00,"
-                +"userID INT,"
-                +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
-                + ")";
 
         try (Connection conn = getConnection();
              Statement statement = conn.createStatement()){
@@ -65,14 +48,9 @@ public class FinanceDatabase {
             statement.execute(transactionTable);
             System.out.println("Transaction table successfully created.");
 
-            statement.execute(incomeTable);
-            System.out.println("Income table successfully created.");
-
-            statement.execute(expenseTable);
-            System.out.println("Expense table successfully created.");
 
         } catch (SQLException e){
-            e.printStackTrace();;
+            e.printStackTrace();
         }
     }
 

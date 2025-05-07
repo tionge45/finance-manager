@@ -6,10 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.WelcomeController"
-          alignment="center" hgap="10" vgap="10" style="-fx-background-colour: f4f4f4;">
+<?import java.net.URL?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.finance.controller.WelcomeController"
+          alignment="center" hgap="10" vgap="10" style="-fx-background-color: f4f4f4;">
+
     <Label text="Welcome to Finance Manager" GridPane.columnIndex="0" GridPane.rowIndex="0"
            style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+
+    <stylesheets>
+        <URL value="@css/styles.css"/>
+    </stylesheets>
 
     <Button text="Sign Up" fx:id="signUpButton" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <Button text="Sign In" fx:id="signInButton" GridPane.columnIndex="0" GridPane.rowIndex="2"/>

@@ -2,19 +2,15 @@ package com.finance.controller;
 
 import com.finance.database.FinanceDatabase;
 import com.finance.database.UserDAO;
+import com.finance.model.User;
+import com.finance.service.UserSessionSingleton;
 import com.finance.utils.SceneSwitcher;
 import com.finance.controller.DashboardController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,8 +31,9 @@ public class SignInController {
     public SignInController() throws SQLException {
     }
 
+
     @FXML
-    private void handleSignIn() throws IOException {
+    private void handleSignIn() throws IOException, SQLException {
         String email = emailField.getText().trim();
         String password = passwordField.getText();
 
@@ -44,31 +41,30 @@ public class SignInController {
             showAlert("Error", "Email and password are required.");
             return;
         }
-
         boolean authenticated = userDAO.authenticateUser(email, password);
-
         if (authenticated) {
-                showAlert("Success", "Login successful!");
-                goToDashboard();
+            User user = userDAO.getUserByEmail(email);
+            showAlert("Success", "Login successful!");
+            UserSessionSingleton.setLoggedInUser(user);
+            goToDashboard();
+
             } else {
                 showAlert("Error", "Invalid email or password.");
             }
-
     }
 
     @FXML
     private void goToSignUp(ActionEvent event) {
         try {
-            SceneSwitcher.switchScene((Node) event.getSource(), "/fxml/signup.fxml");
+            SceneSwitcher.switchScene((Control) event.getSource(), "/fxml/signup.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void goToDashboard() throws IOException {
-        SceneSwitcher.switchScene(signInButton, "/fxml/dashboard.fxml");
+        SceneSwitcher.loadMainApp();
     }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

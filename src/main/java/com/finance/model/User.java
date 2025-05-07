@@ -3,7 +3,6 @@ package com.finance.model;
 import java.util.Objects;
 
 import lombok.Getter;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
     @Getter
