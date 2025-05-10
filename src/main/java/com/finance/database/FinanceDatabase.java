@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class FinanceDatabase {
     private static final String URL = "jdbc:mysql://localhost:3306/financedb";
     private static final String USER = "root";
-    private static final String PASSWORD = "2004";
+    private static final String PASSWORD = "root";
     private static Connection connection = null;
 
     public static Connection getConnection() throws SQLException{
@@ -22,7 +22,7 @@ public class FinanceDatabase {
 
         String usersTable = "CREATE TABLE IF NOT EXISTS Users ("
                 + "userID INT AUTO_INCREMENT PRIMARY KEY,"
-                + "userName VARCHAR(255) NOT NULL,"
+                + "userName VARCHAR(255) NOT NULL UNIQUE,"
                 + "hashedPassword VARCHAR(255) NOT NULL,"
                 + "userEmail VARCHAR(255) NOT NULL UNIQUE"
                 + ")";
@@ -38,6 +38,17 @@ public class FinanceDatabase {
                 +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 +")";
 
+        String budgetTable = "CREATE TABLE IF NOT EXISTS budget_goals ("
+                +"goalID INT AUTO_INCREMENT PRIMARY KEY,"
+                +"userLogin VARCHAR(255) NOT NULL,"
+                +"category VARCHAR(255) NOT NULL,"
+                +"budgetAmount DOUBLE PRECISION NOT NULL,"
+                +"startDate DATE NOT NULL,"
+                +"endDate DATE NOT NULL,"
+                +"status VARCHAR(50) DEFAULT 'In Progress',"
+                +"FOREIGN KEY (userLogin) REFERENCES Users(userName) ON DELETE CASCADE"
+                +")";
+
 
 
         try (Connection conn = getConnection();
@@ -48,6 +59,8 @@ public class FinanceDatabase {
             statement.execute(transactionTable);
             System.out.println("Transaction table successfully created.");
 
+            statement.execute(budgetTable);
+            System.out.println("Budget table successfully created.");
 
         } catch (SQLException e){
             e.printStackTrace();
