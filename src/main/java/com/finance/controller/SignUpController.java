@@ -41,7 +41,7 @@ public class SignUpController implements Initializable{
             showAlert("Error", "All fields must be filled.");
             return;
         }
-        if (userDAO.isValidEmail(email)) {
+        if (!userDAO.isValidEmail(email)) {
             showAlert("Error", "Invalid email format.");
             return;
         }
