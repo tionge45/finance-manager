@@ -36,7 +36,6 @@ public class ExpenseDAO implements Transactionable {
             if(rs.next()){
                 int userID = rs.getInt("userID");
 
-
                 insertStmt.setString(1, "Expense");
                 insertStmt.setString(2, expense.getCategory());
                 insertStmt.setDouble(3,expense.getAmount());

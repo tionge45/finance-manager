@@ -7,6 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +18,9 @@ import java.util.Objects;
 
 public class WelcomeController {
 
+    public VBox leftPane;
+    public StackPane rightPane;
+    public ImageView logoImage;
     @FXML private Button signUpButton;
     @FXML private Button signInButton;
 

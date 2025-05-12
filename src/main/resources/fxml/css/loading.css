@@ -1,0 +1,21 @@
+/* Loading Screen Container */
+.loading-screen {
+    -fx-background-color: #0D4F8B; /* Dark Blue */
+}
+
+/* Progress Bar Styling */
+.progress-bar {
+    -fx-accent: #3498db; /* Light Blue */
+    -fx-control-inner-background: #ffffff22; /* Semi-transparent white behind bar */
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #3498db;
+    -fx-border-width: 1px;
+}
+
+/* Loading Text */
+.loading-text {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
