@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.finance.controller.LoadingController"
-            prefWidth="600" prefHeight="400">
+
+<AnchorPane prefHeight="806.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.LoadingController">
 
     <stylesheets>
-        <URL value="@css/styles.css"/>
+        <URL value="@css/loading.css" />
     </stylesheets>
 
-    <VBox alignment="CENTER" spacing="20.0" layoutX="100" layoutY="150" prefWidth="400" prefHeight="100">
-        <Label text="Loading Finance Manager..." />
-        <ProgressBar fx:id="progressBar" prefWidth="300"/>
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <ImageView fitHeight="800.0" fitWidth="800.0" preserveRatio="true">
+            <Image url="@images/logo.png" />
+        </ImageView>
+        <Label styleClass="loading-slogan" text="The Smart Way to Track &amp; Grow" textAlignment="CENTER" stylesheets="@css/styles.css"/>
+        <ProgressBar fx:id="progressBar" prefHeight="23.0" prefWidth="300.0" stylesheets="@css/loading.css" />
+
+
     </VBox>
 </AnchorPane>

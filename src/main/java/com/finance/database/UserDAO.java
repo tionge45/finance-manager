@@ -17,7 +17,7 @@ public class UserDAO {
     }
 
     public boolean isValidEmail(String email) {
-        return email.matches("^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\\.[a-zA-Z]{2,}$");
+        return !email.matches("^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\\.[a-zA-Z]{2,}$");
     }
 
 
@@ -30,7 +30,7 @@ public class UserDAO {
             throw new IllegalArgumentException
                     ("All fields must be non-null and non-empty.");
         }
-        if (!isValidEmail(userEmail)){
+        if (isValidEmail(userEmail)){
             throw new IllegalArgumentException("Invalid email format");
         }
 

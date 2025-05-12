@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable{
 
+    public StackPane rightPane;
     @FXML
     private TextField usernameField, emailField;
     @FXML

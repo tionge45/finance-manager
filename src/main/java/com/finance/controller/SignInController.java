@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 
 public class SignInController {
 
+    public StackPane rightPane;
     @FXML private Button signInButton;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
