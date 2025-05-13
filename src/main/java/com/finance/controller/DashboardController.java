@@ -3,50 +3,44 @@ package com.finance.controller;
 import com.finance.database.ExpenseDAO;
 import com.finance.database.FinanceDatabase;
 import com.finance.database.IncomeDAO;
+import com.finance.database.filters.ExpenseFilter;
 import com.finance.model.Expense;
 import com.finance.model.Income;
 import com.finance.model.Transaction;
-import com.finance.model.User;
 import com.finance.service.UserSessionSingleton;
-import com.finance.utils.SceneSwitcher;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.time.Month;
 
 public class DashboardController {
 
 
     @FXML
-    private Button sideBarBtn;
+    private  ChoiceBox<String> timeRangeChoiceBox;
     @FXML
-    private Label totalBudgetLabel;
+    private  DatePicker startDatePicker, endDatePicker;
+    @FXML
+    private  Button applyCustomRangeButton;
+    @FXML
+    private Button sideBarBtn;
     @FXML
     private Label totalSpentLabel;
     @FXML
-    private Label totalIncomeLabel;
-
-    @FXML
-    private LineChart<Number, Number> totalBudgetGraph;
-    @FXML
     private LineChart<Number, Number> totalSpentGraph;
-    @FXML
-    private LineChart<Number, Number> totalIncomeGraph;
+
 
 
     @FXML
@@ -72,6 +66,7 @@ public class DashboardController {
     private Connection connection;
     private IncomeDAO incomeDAO;
     private ExpenseDAO expenseDAO;
+    private ExpenseFilter expenseFilter;
 
 
     @FXML
@@ -80,15 +75,85 @@ public class DashboardController {
             connection = FinanceDatabase.getConnection();
             incomeDAO = new IncomeDAO(connection);
             expenseDAO = new ExpenseDAO(connection);
+            expenseFilter = new ExpenseFilter(connection);
+            initializeGraph();
 
             configureTableColumns();  //Binding columns to actual fields
             transactionTable.setItems(transactionData);
-
             loadTransactions();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void initializeGraph(){
+
+        startDatePicker.setVisible(false);
+        endDatePicker.setVisible(false);
+        applyCustomRangeButton.setVisible(false);
+
+        timeRangeChoiceBox.getSelectionModel().
+                selectedItemProperty().
+                addListener
+                        ((obs, oldVal, newVal) -> {
+                            if ("Custom Range".equals(newVal)){
+                                startDatePicker.setVisible(true);
+                                endDatePicker.setVisible(true);
+                                applyCustomRangeButton.setVisible(true);
+                            } else {
+
+                                startDatePicker.setVisible(false);
+                                endDatePicker.setVisible(false);
+                                applyCustomRangeButton.setVisible(false);
+                                updateChartForRange(newVal);
+                            }
+
+                        });
+                applyCustomRangeButton.setOnAction( E -> {
+                    LocalDate start = startDatePicker.getValue();
+                    LocalDate end = endDatePicker.getValue();
+                    if (start != null && end != null && !end.isBefore(start)){
+                        //updateChartForCustomRange(start, end); //to be implemented
+                    } else {
+                        System.out.println("NOTHING"); // To be done later
+                    }
+                });
+
+    }
+
+    private void updateChartForRange(String range){
+        UserSessionSingleton.getInstance();
+        String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
+
+        LocalDate today = LocalDate.now();
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        switch (range){
+            case "Today" ->
+                    transactions = expenseFilter.filterByDateRange(userEmail, today, today, "Expense");
+
+            case "This Week" -> {
+                LocalDate startOfWeek = today.minusDays(today.getDayOfWeek().getValue() - 1);
+                transactions = expenseFilter.filterByDateRange(
+                        userEmail, startOfWeek, today, "Expense");
+            }
+
+            case "This Month" -> {
+                transactions = expenseFilter.filterByMonth(userEmail, today.getYear(), today.getMonthValue(), "Expense");
+            }
+
+            case "This Year" -> {
+                LocalDate startOfYear = LocalDate.of(today.getYear(), 1, 1);
+                transaction
+            }
+
+            case "Custom Range";
+
+            //case "CATEGORY" -> TO BE DONE LATER
+
+        }
     }
 
     private void loadTransactions() {
@@ -133,7 +198,6 @@ public class DashboardController {
         );
     }
 
-
     public void setSideBarController(SideBarController sideBarController) {
         this.sideBarController = sideBarController;
         sideBarController.welcomeMessage();
@@ -174,13 +238,14 @@ public class DashboardController {
 
     }
 
-
     @FXML
     private void handleToggleSidebar() {
         if (sideBarController != null) {
             sideBarController.toggleSidebar();
         }
     }
+
+    
 }
 
 

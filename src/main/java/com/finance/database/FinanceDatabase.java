@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class FinanceDatabase {
     private static final String URL = "jdbc:mysql://localhost:3306/financedb";
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "2004";
     private static Connection connection = null;
 
     public static Connection getConnection() throws SQLException{

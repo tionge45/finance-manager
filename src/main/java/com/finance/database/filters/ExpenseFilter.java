@@ -46,7 +46,7 @@ public class ExpenseFilter implements TransactionFilter {
     }
 
     @Override
-    public List<Transaction> filterByDateRange(String userEmail, Date startDate, Date endDate, String transactionType) {
+    public List<Transaction> filterByDateRange(String userEmail, LocalDate startDate, LocalDate endDate, String transactionType) {
         List<Transaction> filteredExpenses = new ArrayList<>();
         String sql = """
             SELECT t.amount, t.category, t.description, t.transaction_timestamp
@@ -81,7 +81,7 @@ public class ExpenseFilter implements TransactionFilter {
     public List<Transaction> filterByMonth(String userEmail, int year, int month, String transactionType) {
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
-        return filterByDateRange(userEmail, Date.valueOf(startDate), Date.valueOf(endDate), transactionType);
+        return filterByDateRange(userEmail, startDate, endDate, transactionType);
     }
 
     @Override

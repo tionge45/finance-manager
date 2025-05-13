@@ -2,7 +2,6 @@ package com.finance.controller;
 
 import com.finance.model.User;
 import com.finance.service.UserSessionSingleton;
-import com.finance.utils.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +13,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.BreakIterator;
-import java.util.Objects;
 
 public class SideBarController {
 
@@ -67,7 +64,7 @@ public class SideBarController {
 
     public void handleIncome(ActionEvent event) throws IOException {
         System.out.println("Income button clicked!");
-        loadPage("/fxml/income.fxml" );
+        loadPage("/fxml/expense.fxml");
     }
 
     public void handleBudget(ActionEvent event) throws IOException {

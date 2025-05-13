@@ -1,5 +1,5 @@
 package com.finance.controller;
 
-public class IncomeController {
+public class ExpenseController {
 
 }
