@@ -33,11 +33,7 @@ public class ExpenseFilter implements TransactionFilter {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredExpenses.add(new Expense(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredExpenses.add(mapRowToExpense(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter expenses by category", e);
@@ -60,16 +56,12 @@ public class ExpenseFilter implements TransactionFilter {
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, userEmail);
             pstmt.setString(2, transactionType); // Hardcoded as we're filtering expenses
-            pstmt.setDate(3, startDate);
-            pstmt.setDate(4, endDate);
+            pstmt.setDate(3, Date.valueOf(startDate));
+            pstmt.setDate(4,  Date.valueOf(endDate));
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredExpenses.add(new Expense(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredExpenses.add(mapRowToExpense(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter expenses by date range", e);
@@ -104,15 +96,22 @@ public class ExpenseFilter implements TransactionFilter {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredExpenses.add(new Expense(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredExpenses.add(mapRowToExpense(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter expenses by amount range", e);
         }
         return filteredExpenses;
+    }
+
+    private Expense mapRowToExpense(ResultSet rs) throws SQLException {
+        Expense e = new Expense(
+                rs.getString("category"),
+                rs.getDouble("amount"),
+                rs.getString("description")
+        );
+        Timestamp ts = rs.getTimestamp("transaction_timestamp");
+        if (ts != null) { e.setTimestamp(ts.toLocalDateTime()); }
+        return e;
     }
 }

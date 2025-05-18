@@ -15,12 +15,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.Month;
@@ -28,6 +31,7 @@ import java.time.Month;
 public class DashboardController {
 
 
+    public CategoryAxis dateAxis;
     @FXML
     private  ChoiceBox<String> timeRangeChoiceBox;
     @FXML
@@ -39,7 +43,7 @@ public class DashboardController {
     @FXML
     private Label totalSpentLabel;
     @FXML
-    private LineChart<Number, Number> totalSpentGraph;
+    private LineChart<String, Number> totalSpentGraph;
 
 
 
@@ -77,10 +81,11 @@ public class DashboardController {
             expenseDAO = new ExpenseDAO(connection);
             expenseFilter = new ExpenseFilter(connection);
             initializeGraph();
-
             configureTableColumns();  //Binding columns to actual fields
             transactionTable.setItems(transactionData);
             loadTransactions();
+            updateChartForRange("This Week");
+            timeRangeChoiceBox.setValue("This Week");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -114,7 +119,8 @@ public class DashboardController {
                     LocalDate start = startDatePicker.getValue();
                     LocalDate end = endDatePicker.getValue();
                     if (start != null && end != null && !end.isBefore(start)){
-                        //updateChartForCustomRange(start, end); //to be implemented
+                        updateChartForCustomRange(start, end);
+                        timeRangeChoiceBox.setValue("Custom Range");//to be implemented
                     } else {
                         System.out.println("NOTHING"); // To be done later
                     }
@@ -146,14 +152,69 @@ public class DashboardController {
 
             case "This Year" -> {
                 LocalDate startOfYear = LocalDate.of(today.getYear(), 1, 1);
-                transaction
+                transactions = expenseFilter.filterByDateRange(
+                        userEmail, startOfYear, today, "Expense");
             }
-
-            case "Custom Range";
-
-            //case "CATEGORY" -> TO BE DONE LATER
+            
 
         }
+        
+        updateChart(transactions);
+    }
+
+
+    private void updateChart(List<Transaction> transactions) {
+
+        // clears previous data
+        totalSpentGraph.getData().clear();
+
+        if (transactions.isEmpty()) {
+            totalSpentLabel.setText("Total Spent: $0.00");
+            return;
+        }
+
+        //aggregates expenses from one day into one sum
+        Map<LocalDate, Double> dailyTotals = new HashMap<>();
+        for (Transaction t : transactions) {
+            if(t.getTimestamp() == null){
+                System.err.println("Transaction without timestamp: " + t);
+                continue;
+            }
+            LocalDate day = t.getTimestamp().toLocalDate();
+            dailyTotals.merge(day, t.getAmount(), Double::sum);
+        }
+
+        //builds a linechart series
+        //data point on graph = (day, total), (x, y)
+        XYChart.Series<String, Number> spentSeries = new XYChart.Series<>();
+        spentSeries.setName("Expenses");
+
+        //sorts left→right chronologically
+        //formats each date entry
+        dailyTotals.keySet().stream()
+                .sorted()
+                .forEach(day -> {
+                    double total = dailyTotals.get(day);
+
+                    String label = day.format(DateTimeFormatter.ofPattern("dd MMM"));
+                    spentSeries.getData().add(new XYChart.Data<>(label, total));
+                });
+
+        //display graph
+        totalSpentGraph.getData().add(spentSeries);
+
+        double grandTotal = dailyTotals.values().stream().mapToDouble(Double::doubleValue).sum();
+        totalSpentLabel.setText(String.format("Total Spent: $%.2f", grandTotal));
+
+
+    }
+
+    public void updateChartForCustomRange(LocalDate start, LocalDate end) {
+        UserSessionSingleton.getInstance();
+        String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
+        List<Transaction> transactions = expenseFilter.filterByDateRange(
+                userEmail, start, end, "Expense");
+        updateChart(transactions);
     }
 
     private void loadTransactions() {
@@ -219,9 +280,11 @@ public class DashboardController {
         System.out.println("Trying to insert for user: " + userEmail);
         if ("Income".equals(type)) {
             Income income = new Income(category, amount, "");  // Use form description if available
+            income.setTimestamp(LocalDateTime.now());
             incomeDAO.insertTransaction(income, userEmail);
         } else if ("Expense".equals(type)) {
             Expense expense = new Expense(category, amount, "");  // Use form description if available
+            expense.setTimestamp(LocalDateTime.now());
             expenseDAO.insertTransaction(expense, userEmail);
         } else {
             System.err.println("Transaction type not selected.");

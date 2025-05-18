@@ -63,7 +63,7 @@ public class IncomeDAO implements Transactionable {
 
         List<Transaction> income = new ArrayList<>();
 
-        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp, t.description" +
+        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp, t.description " +
                 " FROM transactions t " +
                 "JOIN Users u ON t.userID = u.userID " +
                 "WHERE u.userEmail = ? " +

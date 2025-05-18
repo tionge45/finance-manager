@@ -28,6 +28,37 @@
     -fx-cursor: hand;
 }
 
+/* Chart Styling */
+.line-chart {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(46, 134, 193, 0.1), 10, 0.5, 0, 2);
+}
+
+.chart-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.axis-label {
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #e6e6e6;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #e6e6e6;
+}
+
 .button:hover {
     -fx-background-color: #2980b9;
 }
@@ -58,9 +89,136 @@
     -fx-transition: all 0.3s ease;
 }
 
+#sideBarBtn {
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-background-radius: 4px;
+}
+
+#sideBarBtn:hover {
+    -fx-background-color: #34495e;
+}
+
 .sidebar.collapsed {
     -fx-pref-width: 60px;
 }
+
+
+/* Text Fields & Choice Boxes */
+.text-field,
+.choice-box,
+.date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0.2, 0, 1);
+}
+
+.text-field:focused,
+.choice-box:focused,
+.date-picker:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 5, 0.3, 0, 1);
+}
+
+/* Table View */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(46, 134, 193, 0.1), 10, 0.5, 0, 2);
+    -fx-padding: 5px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.table-view .table-cell {
+    -fx-padding: 10px;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* Total Spent Label */
+#totalSpentLabel {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10px;
+    -fx-background-color: #ecf6fd;
+    -fx-background-radius: 8px;
+}
+
+/* Form Section */
+.hbox {
+    -fx-spacing: 15px;
+    -fx-alignment: center-left;
+    -fx-padding: 15px;
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(46, 134, 193, 0.1), 10, 0.5, 0, 2);
+}
+
+/* Choice Box Popup */
+.choice-box .context-menu {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.3, 0, 1);
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #e3f2fd;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: #2c3e50;
+}
+
+/* Date Picker */
+.date-picker-popup {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.3, 0, 1);
+}
+
+.date-cell {
+    -fx-background-radius: 4px;
+}
+
+.date-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+.date-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+
+
 
 .loading-slogan {
     -fx-font-size: 18px;
@@ -81,7 +239,6 @@
 }
 
 
-
 .form-card {
     -fx-background-color: #ffffff;
     -fx-padding: 30px;
@@ -90,3 +247,5 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.3, 0, 4);
     -fx-min-width: 150px;
 }
+
+

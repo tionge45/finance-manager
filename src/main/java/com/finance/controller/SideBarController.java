@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class SideBarController {
 
+    public Button transactionHistoryBtn;
+    public Button insightsBtn;
     @FXML
     private Button exitBtn, dashboardBtn, incomeBtn, budgetBtn, reportBtn, logOutBtn ;
     @FXML
@@ -62,9 +64,9 @@ public class SideBarController {
 
     }
 
-    public void handleIncome(ActionEvent event) throws IOException {
+    public void handleTransactionHistory(ActionEvent event) throws IOException {
         System.out.println("Income button clicked!");
-        loadPage("/fxml/expense.fxml");
+        loadPage("/fxml/insights.fxml");
     }
 
     public void handleBudget(ActionEvent event) throws IOException {

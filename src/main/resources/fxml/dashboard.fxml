@@ -2,10 +2,12 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,15 +15,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.DatePicker?>
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
+<VBox prefHeight="832.0" prefWidth="2061.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
 
-    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/styles.css" text="☰" textAlignment="CENTER" />
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="90.0" prefWidth="63.0" stylesheets="@css/styles.css" text="☰" textAlignment="CENTER" />
 
 
     <HBox alignment="CENTER" spacing="20">
         <VBox alignment="CENTER" prefWidth="280" spacing="10" stylesheets="@css/styles.css" />
-        <ChoiceBox fx:id="timeRangeChoiceBox" prefHeight="31.0" prefWidth="48.0"  stylesheets="@css/styles.css">
+        <ChoiceBox fx:id="timeRangeChoiceBox" prefHeight="48.0" prefWidth="109.0" stylesheets="@css/styles.css">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Today" />
@@ -33,15 +34,15 @@
             </items>
         </ChoiceBox>
 
-        <DatePicker fx:id="startDatePicker" visible="false" promptText="Start Date" />
-        <DatePicker fx:id="endDatePicker" visible="false" promptText="End Date" />
+        <DatePicker fx:id="startDatePicker" promptText="Start Date" visible="false" />
+        <DatePicker fx:id="endDatePicker" promptText="End Date" visible="false" />
         <Button fx:id="applyCustomRangeButton" text="Apply" visible="false" />
 
         <VBox alignment="CENTER" prefWidth="1200.0" spacing="10">
             <Label fx:id="totalSpentLabel" style="-fx-font-size: 16px;" text="Total Spent: $0.00" />
-            <LineChart fx:id="totalSpentGraph" prefHeight="352.0" prefWidth="1151.0" title="Spent Graph">
+            <LineChart fx:id="totalSpentGraph" prefHeight="456.0" prefWidth="1089.0" title="Expenses Graph">
                 <xAxis>
-                    <NumberAxis label="Time" />
+                    <CategoryAxis fx:id="dateAxis" label="Date" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Amount" />
@@ -54,7 +55,7 @@
 
     <VBox spacing="10">
         <Label style="-fx-font-size: 18px;" text="Recent Transactions" />
-        <TableView fx:id="transactionTable" prefHeight="200" stylesheets="@css/styles.css">
+        <TableView fx:id="transactionTable" prefHeight="200" prefWidth="1723.0" stylesheets="@css/styles.css">
             <columns>
                 <TableColumn fx:id="transactionDateColumn" text="Date" />
                 <TableColumn fx:id="transactionTypeColumn" text="Type" />

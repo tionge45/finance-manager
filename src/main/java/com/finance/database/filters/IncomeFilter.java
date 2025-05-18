@@ -35,11 +35,7 @@ public class IncomeFilter implements TransactionFilter {
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    filteredIncome.add(new Income(
-                            rs.getString("category"),
-                            rs.getDouble("amount"),
-                            rs.getString("description")
-                    ));
+                    filteredIncome.add(mapRowToIncome(rs));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException("Failed to filter income by category", e);
@@ -67,11 +63,7 @@ public class IncomeFilter implements TransactionFilter {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredIncome.add(new Income(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredIncome.add(mapRowToIncome(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter income by date range", e);
@@ -106,15 +98,22 @@ public class IncomeFilter implements TransactionFilter {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredIncome.add(new Income(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredIncome.add(mapRowToIncome(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter income by amount range", e);
         }
         return filteredIncome;
+    }
+
+    private Income mapRowToIncome(ResultSet rs) throws SQLException {
+        Income i = new Income(
+                rs.getString("category"),
+                rs.getDouble("amount"),
+                rs.getString("description")
+        );
+        Timestamp ts = rs.getTimestamp("transaction_timestamp");
+        if (ts != null) { i.setTimestamp(ts.toLocalDateTime()); }
+        return i;
     }
 }

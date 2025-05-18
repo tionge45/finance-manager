@@ -63,7 +63,7 @@ public class ExpenseDAO implements Transactionable {
 
         List<Transaction> expenses = new ArrayList<>();
 
-        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp, t.description" +
+        String getQuery = "SELECT t.category, t.amount, t.transaction_timestamp, t.description " +
                 " FROM transactions t " +
                 "JOIN Users u ON t.userID = u.userID " +
                 "WHERE u.userEmail = ? " +
