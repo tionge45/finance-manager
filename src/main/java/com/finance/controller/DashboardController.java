@@ -6,32 +6,28 @@ import com.finance.database.IncomeDAO;
 import com.finance.model.Expense;
 import com.finance.model.Income;
 import com.finance.model.Transaction;
-import com.finance.model.User;
 import com.finance.service.UserSessionSingleton;
-import com.finance.utils.SceneSwitcher;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class DashboardController {
 
 
+    public ChoiceBox timeRangeChoiceBox;
+    public DatePicker startDatePicker;
+    public Button applyCustomRangeButton;
+    public DatePicker endDatePicker;
     @FXML
     private Button sideBarBtn;
     @FXML

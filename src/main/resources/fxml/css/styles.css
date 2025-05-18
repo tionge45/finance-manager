@@ -4,21 +4,18 @@
     -fx-background-color: #f4f4f4;
 }
 
-/* Labels */
 .label {
     -fx-font-size: 14px;
     -fx-text-fill: #333333;
 }
 
 
-/* Title Labels */
 .label.title {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
 }
 
-/* Buttons */
 .button {
     -fx-background-color: #3498db;
     -fx-text-fill: white;
@@ -32,7 +29,6 @@
     -fx-background-color: #2980b9;
 }
 
-/* Text Fields & Password Fields */
 .text-field,
 .password-field {
     -fx-background-color: white;
@@ -42,11 +38,11 @@
     -fx-padding: 6px;
 }
 
-/* Hyperlinks */
 .hyperlink {
     -fx-text-fill: #3498db;
     -fx-font-size: 12px;
 }
+
 .hyperlink:hover {
     -fx-text-fill: #2c3e50;
     -fx-underline: true;
