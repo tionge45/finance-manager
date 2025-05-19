@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="600" prefWidth="722.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.InsightsController">
+
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+
+    <HBox alignment="CENTER" prefHeight="521.0" prefWidth="1266.0" spacing="20" stylesheets="@css/styles.css">
+        <VBox alignment="CENTER" prefWidth="280" spacing="10" stylesheets="@css/styles.css">
+             <ChoiceBox fx:id="timeRangeChoiceBox" prefHeight="62.0" prefWidth="85.0" stylesheets="@css/styles.css">
+                 <items>
+                     <FXCollections fx:factory="observableArrayList">
+                         <String fx:value="Today" />
+                         <String fx:value="This Week" />
+                         <String fx:value="This Month" />
+                         <String fx:value="This Year" />
+                         <String fx:value="Custom Range" />
+                     </FXCollections>
+                 </items>
+            <styleClass>
+               <String fx:value="button" />
+               <String fx:value="date-picker" />
+               <String fx:value="title" />
+            </styleClass>
+             </ChoiceBox>
+
+            <DatePicker fx:id="startDatePicker" visible="false" />
+            <DatePicker fx:id="endDatePicker" visible="false" />
+            <Button fx:id="applyCustomRangeButton" text="Apply" visible="false" />
+        </VBox>
+
+        <VBox alignment="CENTER" prefWidth="1200.0" spacing="10" stylesheets="@css/styles.css">
+            <PieChart fx:id="incomeExpensePie" prefHeight="447.0" prefWidth="597.0" stylesheets="@css/styles.css">
+            <styleClass>
+               <String fx:value="chart-pie" />
+               <String fx:value="button" />
+               <String fx:value="chart-plot-background" />
+               <String fx:value="choice-box" />
+            </styleClass></PieChart>
+            <Label fx:id="netIncomeLabel" style="-fx-font-size: 16px;" stylesheets="@css/styles.css" text="Net Income: $0.00" BorderPane.alignment="CENTER" />
+        </VBox>
+
+    </HBox>
+
+</VBox>

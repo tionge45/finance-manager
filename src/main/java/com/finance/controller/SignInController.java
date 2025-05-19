@@ -5,14 +5,11 @@ import com.finance.database.UserDAO;
 import com.finance.model.User;
 import com.finance.service.UserSessionSingleton;
 import com.finance.utils.SceneSwitcher;
-import com.finance.controller.DashboardController;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -13,11 +13,11 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-       // FinanceDatabase.createTables();
+        //FinanceDatabase.createTables();
         SceneSwitcher.setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/loading.fxml")));
         primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.setTitle("Loading...");
+        primaryStage.setTitle("Financial Manager");
         primaryStage.show();
     }
 

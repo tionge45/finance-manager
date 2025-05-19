@@ -6,20 +6,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
+<VBox prefHeight="832.0" prefWidth="1029.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
 
-    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/styles.css" text="☰" textAlignment="CENTER" />
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="59.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
 
 
-
-    <HBox alignment="CENTER" spacing="20">
+    <HBox alignment="CENTER" prefHeight="521.0" prefWidth="1266.0" spacing="20">
         <VBox alignment="CENTER" prefWidth="280" spacing="10" stylesheets="@css/styles.css" />
+        <ChoiceBox fx:id="timeRangeChoiceBox" prefHeight="51.0" prefWidth="77.0" stylesheets="@css/styles.css">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Today" />
+                    <String fx:value="This Week" />
+                    <String fx:value="This Month" />
+                    <String fx:value="This Year" />
+                    <String fx:value="Custom Range" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <DatePicker fx:id="startDatePicker" promptText="Start Date" visible="false" />
+        <DatePicker fx:id="endDatePicker" promptText="End Date" visible="false" />
+        <Button fx:id="applyCustomRangeButton" text="Apply" visible="false" />
 
         <VBox alignment="CENTER" prefWidth="1200.0" spacing="10">
             <Label fx:id="totalSpentLabel" style="-fx-font-size: 16px;" text="Total Spent: $0.00" />
-            <LineChart fx:id="totalSpentGraph" prefHeight="213.0" prefWidth="436.0" title="Spent Graph">
+            <LineChart fx:id="totalSpentGraph" prefHeight="418.0" prefWidth="892.0" title="Expenses Graph">
                 <xAxis>
-                    <NumberAxis label="Time" />
+                    <CategoryAxis fx:id="dateAxis" label="Date" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Amount" />
@@ -32,7 +46,7 @@
 
     <VBox spacing="10">
         <Label style="-fx-font-size: 18px;" text="Recent Transactions" />
-        <TableView fx:id="transactionTable" prefHeight="200" stylesheets="@css/styles.css">
+        <TableView fx:id="transactionTable" prefHeight="387.0" prefWidth="1030.0" stylesheets="@css/styles.css">
             <columns>
                 <TableColumn fx:id="transactionDateColumn" text="Date" />
                 <TableColumn fx:id="transactionTypeColumn" text="Type" />
@@ -42,9 +56,9 @@
         </TableView>
 
         <HBox spacing="10">
-            <TextField fx:id="transactionAmountField" promptText="Amount" stylesheets="@css/styles.css" />
-            <TextField fx:id="transactionCategoryField" promptText="Category" stylesheets="@css/styles.css" />
-            <ChoiceBox fx:id="transactionTypeBox" stylesheets="@css/styles.css">
+            <TextField fx:id="transactionAmountField" prefHeight="48.0" prefWidth="183.0" promptText="Amount" stylesheets="@css/styles.css" />
+            <TextField fx:id="transactionCategoryField" prefHeight="54.0" prefWidth="183.0" promptText="Category" stylesheets="@css/styles.css" />
+            <ChoiceBox fx:id="transactionTypeBox" prefHeight="33.0" prefWidth="125.0" stylesheets="@css/styles.css">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Expense" />
@@ -52,7 +66,7 @@
                     </FXCollections>
                 </items>
             </ChoiceBox>
-            <Button onAction="#handleAddTransaction" stylesheets="@css/styles.css" text="Add Transaction" />
+            <Button onAction="#handleAddTransaction" prefHeight="48.0" prefWidth="148.0" stylesheets="@css/styles.css" text="Add Transaction" />
         </HBox>
     </VBox>
 </VBox>

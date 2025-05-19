@@ -35,11 +35,7 @@ public class IncomeFilter implements TransactionFilter {
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    filteredIncome.add(new Income(
-                            rs.getString("category"),
-                            rs.getDouble("amount"),
-                            rs.getString("description")
-                    ));
+                    filteredIncome.add(mapRowToIncome(rs));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException("Failed to filter income by category", e);
@@ -48,7 +44,7 @@ public class IncomeFilter implements TransactionFilter {
     }
 
     @Override
-    public List<Transaction> filterByDateRange(String userEmail, Date startDate, Date endDate, String transactionType) {
+    public List<Transaction> filterByDateRange(String userEmail, LocalDate startDate, LocalDate endDate, String transactionType) {
         List<Transaction> filteredIncome = new ArrayList<>();
         String sql = """
             SELECT t.amount, t.category, t.description, t.transaction_timestamp
@@ -62,16 +58,12 @@ public class IncomeFilter implements TransactionFilter {
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, userEmail);
             pstmt.setString(2, transactionType);
-            pstmt.setDate(3, startDate);
-            pstmt.setDate(4, endDate);
+            pstmt.setDate(3, Date.valueOf(startDate));
+            pstmt.setDate(4, Date.valueOf(endDate));
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredIncome.add(new Income(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredIncome.add(mapRowToIncome(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter income by date range", e);
@@ -83,7 +75,7 @@ public class IncomeFilter implements TransactionFilter {
     public List<Transaction> filterByMonth(String userEmail, int year, int month, String transactionType) {
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
-        return filterByDateRange(userEmail, Date.valueOf(startDate), Date.valueOf(endDate), transactionType);
+        return filterByDateRange(userEmail, startDate, endDate, transactionType);
     }
 
     @Override
@@ -106,15 +98,22 @@ public class IncomeFilter implements TransactionFilter {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                filteredIncome.add(new Income(
-                        rs.getString("category"),
-                        rs.getDouble("amount"),
-                        rs.getString("description")
-                ));
+                filteredIncome.add(mapRowToIncome(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to filter income by amount range", e);
         }
         return filteredIncome;
+    }
+
+    private Income mapRowToIncome(ResultSet rs) throws SQLException {
+        Income i = new Income(
+                rs.getString("category"),
+                rs.getDouble("amount"),
+                rs.getString("description")
+        );
+        Timestamp ts = rs.getTimestamp("transaction_timestamp");
+        if (ts != null) { i.setTimestamp(ts.toLocalDateTime()); }
+        return i;
     }
 }

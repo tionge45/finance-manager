@@ -4,18 +4,20 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="600" prefWidth="800" spacing="0" stylesheets="@css/styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.finance.controller.WelcomeController">
+<HBox prefHeight="600"
+      prefWidth="800"
+      stylesheets="@css/styles.css"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="com.finance.controller.WelcomeController">
 
-    <!--LEFT-->
     <VBox fx:id="leftPane" alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
         <Label styleClass="title-label" text="Welcome to Finance Manager" />
         <Button fx:id="signUpButton" text="Sign Up" />
         <Button fx:id="signInButton" text="Sign In" />
     </VBox>
 
-    <!--RIGHT-->
-    <StackPane fx:id="rightPane" prefWidth="266" style="-fx-background-color: #3498db;">  <!-- 800 / 3 -->
-     <!-- light blue -->
+    <StackPane fx:id="rightPane" prefWidth="266" style="-fx-background-color: #3498db;">
         <ImageView fx:id="logoImage" fitHeight="225.0" fitWidth="261.0" preserveRatio="true">
 
             <Image url="@images/logo.png" />
