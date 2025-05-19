@@ -55,6 +55,9 @@ public class SideBarController {
         if (loader.getController() instanceof DashboardController dashboardController) {
             dashboardController.setSideBarController(this);
         }
+        if(loader.getController() instanceof InsightsController insightsController){
+            insightsController.setSideBarController(this);
+        }
     }
 
 
@@ -64,8 +67,8 @@ public class SideBarController {
 
     }
 
-    public void handleTransactionHistory(ActionEvent event) throws IOException {
-        System.out.println("Income button clicked!");
+    public void handleInsights(ActionEvent event) throws IOException {
+        System.out.println("Insights button clicked!");
         loadPage("/fxml/insights.fxml");
     }
 
@@ -103,8 +106,6 @@ public class SideBarController {
             welcomeLabel.setText("Welcome, Guest!");
         }
     }
-
-
 
 
 }

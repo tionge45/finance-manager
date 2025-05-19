@@ -13,11 +13,11 @@
 
     <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <ImageView fitHeight="800.0" fitWidth="800.0" preserveRatio="true">
+        <ImageView fitHeight="370.0" fitWidth="611.0" preserveRatio="true">
             <Image url="@images/logo.png" />
         </ImageView>
-        <Label styleClass="loading-slogan" text="The Smart Way to Track &amp; Grow" textAlignment="CENTER" stylesheets="@css/styles.css"/>
-        <ProgressBar fx:id="progressBar" prefHeight="23.0" prefWidth="300.0" stylesheets="@css/loading.css" />
+        <Label prefHeight="44.0" prefWidth="326.0" styleClass="loading-slogan" stylesheets="@css/styles.css" text="The Smart Way to Track &amp; Grow" textAlignment="CENTER" />
+        <ProgressBar fx:id="progressBar" prefHeight="23.0" prefWidth="384.0" stylesheets="@css/loading.css" />
 
 
     </VBox>

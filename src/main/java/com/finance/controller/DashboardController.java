@@ -8,7 +8,6 @@ import com.finance.model.Expense;
 import com.finance.model.Income;
 import com.finance.model.Transaction;
 import com.finance.service.UserSessionSingleton;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -25,8 +24,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.time.Month;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DashboardController {
 
@@ -115,6 +116,7 @@ public class DashboardController {
                             }
 
                         });
+
                 applyCustomRangeButton.setOnAction( E -> {
                     LocalDate start = startDatePicker.getValue();
                     LocalDate end = endDatePicker.getValue();
@@ -131,9 +133,7 @@ public class DashboardController {
     private void updateChartForRange(String range){
         UserSessionSingleton.getInstance();
         String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
-
         LocalDate today = LocalDate.now();
-
         List<Transaction> transactions = new ArrayList<>();
 
         switch (range){
@@ -145,23 +145,17 @@ public class DashboardController {
                 transactions = expenseFilter.filterByDateRange(
                         userEmail, startOfWeek, today, "Expense");
             }
-
             case "This Month" -> {
                 transactions = expenseFilter.filterByMonth(userEmail, today.getYear(), today.getMonthValue(), "Expense");
             }
-
             case "This Year" -> {
                 LocalDate startOfYear = LocalDate.of(today.getYear(), 1, 1);
                 transactions = expenseFilter.filterByDateRange(
                         userEmail, startOfYear, today, "Expense");
             }
-            
-
         }
-        
         updateChart(transactions);
     }
-
 
     private void updateChart(List<Transaction> transactions) {
 
@@ -217,7 +211,7 @@ public class DashboardController {
         updateChart(transactions);
     }
 
-    private void loadTransactions() {
+    public void loadTransactions() {
         UserSessionSingleton.getInstance();
         String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
 
@@ -308,7 +302,6 @@ public class DashboardController {
         }
     }
 
-    
 }
 
 

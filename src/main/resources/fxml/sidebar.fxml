@@ -33,7 +33,8 @@
             <VBox alignment="CENTER" spacing="10">
 
                 <Button fx:id="dashboardBtn" onAction="#handleDashboard" prefWidth="200" text="Dashboard" />
-                <Button fx:id="insightsBtn" onAction="#handleInsights" prefWidth="200" text="Income" />
+                <Button fx:id="insightsBtn" onAction="#handleInsights" prefWidth="200" text="Financial Insights" />
+
                 <Button fx:id="budgetBtn" onAction="#handleBudget" prefWidth="200" text="Budget" />
                 <Button fx:id="reportBtn" onAction="#handleReport" prefWidth="200" text="Report" />
             </VBox>
