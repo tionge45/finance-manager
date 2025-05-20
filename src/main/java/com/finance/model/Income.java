@@ -10,9 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-
 public class Income extends Transaction {
-
     private String category; //a.k.a category => Business, Salary, etc
     private double amount;
     private String description;
