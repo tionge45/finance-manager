@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="832.0" prefWidth="1029.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
+<VBox prefHeight="700.0" prefWidth="850.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
 
     <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="59.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
 

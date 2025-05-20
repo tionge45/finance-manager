@@ -7,13 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.finance.controller.ReportController"
-           prefHeight="400.0" prefWidth="600.0">
+<VBox prefHeight="700.0" prefWidth="850.0"
+      stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.ReportController">
 
-    <stylesheets>
-        <URL value="@css/styles.css"/>
-    </stylesheets>
-
-</StackPane>
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+</VBox>

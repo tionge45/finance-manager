@@ -55,8 +55,14 @@ public class SideBarController {
         if (loader.getController() instanceof DashboardController dashboardController) {
             dashboardController.setSideBarController(this);
         }
-        if(loader.getController() instanceof InsightsController insightsController){
+        else if (loader.getController() instanceof InsightsController insightsController){
             insightsController.setSideBarController(this);
+        }
+        else if(loader.getController() instanceof BudgetController budgetController){
+            budgetController.setSideBarController(this);
+        }
+        else if(loader.getController() instanceof ReportController reportController){
+            reportController.setSideBarController(this);
         }
     }
 

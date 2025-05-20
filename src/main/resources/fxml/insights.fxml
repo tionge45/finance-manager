@@ -6,13 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="600" prefWidth="722.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.InsightsController">
+<VBox prefHeight="700.0" prefWidth="850.0"
+      stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.InsightsController">
 
     <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
 
-    <HBox alignment="CENTER" prefHeight="521.0" prefWidth="1266.0" spacing="20" stylesheets="@css/styles.css">
-        <VBox alignment="CENTER" prefWidth="280" spacing="10" stylesheets="@css/styles.css">
-             <ChoiceBox fx:id="timeRangeChoiceBox" prefHeight="62.0" prefWidth="85.0" stylesheets="@css/styles.css">
+    <HBox alignment="CENTER" prefHeight="583.0" prefWidth="943.0" spacing="20" stylesheets="@css/styles.css">
+        <VBox alignment="CENTER" prefHeight="486.0" prefWidth="64.0" spacing="10" stylesheets="@css/styles.css">
+             <ChoiceBox fx:id="timeRangeChoiceBox" prefHeight="62.0" prefWidth="86.0" stylesheets="@css/styles.css">
                  <items>
                      <FXCollections fx:factory="observableArrayList">
                          <String fx:value="Today" />
@@ -34,14 +36,15 @@
             <Button fx:id="applyCustomRangeButton" text="Apply" visible="false" />
         </VBox>
 
-        <VBox alignment="CENTER" prefWidth="1200.0" spacing="10" stylesheets="@css/styles.css">
-            <PieChart fx:id="incomeExpensePie" prefHeight="447.0" prefWidth="597.0" stylesheets="@css/styles.css">
-            <styleClass>
-               <String fx:value="chart-pie" />
-               <String fx:value="button" />
-               <String fx:value="chart-plot-background" />
-               <String fx:value="choice-box" />
-            </styleClass></PieChart>
+        <VBox alignment="CENTER" prefHeight="659.0" prefWidth="708.0" spacing="10" stylesheets="@css/styles.css">
+            <PieChart fx:id="incomeExpensePie" prefHeight="625.0" prefWidth="708.0" stylesheets="@css/styles.css">
+                <styleClass>
+                   <String fx:value="chart-pie" />
+                   <String fx:value="button" />
+                   <String fx:value="chart-plot-background" />
+                   <String fx:value="choice-box" />
+                </styleClass>
+            </PieChart>
             <Label fx:id="netIncomeLabel" style="-fx-font-size: 16px;" stylesheets="@css/styles.css" text="Net Income: $0.00" BorderPane.alignment="CENTER" />
         </VBox>
 
