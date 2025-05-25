@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="176.0" prefWidth="340.0" spacing="5" styleClass="budget-item" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.BudgetItemController">
+
+    <HBox>
+        <Label fx:id="nameLabel" styleClass="budget-category" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Label fx:id="amountLabel" styleClass="budget-amount" />
+    </HBox>
+
+    <HBox spacing="5">
+        <Label fx:id="categoryLabel" styleClass="budget-subitem" />
+        <Label fx:id="dateLabel" styleClass="budget-subitem" />
+        <Label fx:id="statusLabel" styleClass="budget-subitem" />
+        <Label fx:id="remainingLabel" styleClass="budget-subitem" />
+        <Label fx:id="messageLabel" styleClass="budget-subitem" />
+
+        <Button fx:id="deleteButton" text="🗑" onAction="#handleDeleteBudget" styleClass="delete-button" />
+
+    </HBox>
+</VBox>

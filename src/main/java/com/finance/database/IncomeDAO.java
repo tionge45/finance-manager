@@ -46,11 +46,11 @@ public class IncomeDAO implements Transactionable {
 
                 insertStmt.executeUpdate();
                 LOGGER.info("Income inserted successfully.");
-                System.out.println("Inserted income for: " + userEmail);
+                LOGGER.info("Inserted income for: " + userEmail);
 
 
             } else {
-                System.out.println("User not found. Expense not inserted.");
+                LOGGER.info("User not found. Expense not inserted.");
             }
 
         } catch (SQLException e) {

@@ -1,41 +1,50 @@
 package com.finance.model;
 
-import com.finance.database.FinanceDatabase;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.jetbrains.annotations.Nullable;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 public class Budget {
-    private int goalID;
-    private String userLogin;
+    private int budgetID;
+    private int userID;
+    @Nullable
+    private String name;
     private String category;
     private double budgetAmount;
-    private double currentExpenses;
-    private Date startDate;
-    private Date endDate;
-    private String status;
+    private double budgetSpent;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Status status;
 
-    public Budget(int _goalID, String _userLogin, String _category, double _budgetAmount, double _currentExpenses, Date _startDate, Date _endDate, String _status) {
-        this.goalID = _goalID;
-        this.userLogin = _userLogin;
-        this.category = _category;
-        this.budgetAmount = _budgetAmount;
-        this.currentExpenses = _currentExpenses;
-        this.startDate = _startDate;
-        this.endDate = _endDate;
-        this.status = _status;
+    public enum Status{ACTIVE, EXCEEDED, ARCHIVED}
+
+    public Budget(int budgetID, int userID, @Nullable String name, String category,
+                  double budgetAmount, double budgetSpent, LocalDate startDate,
+                  LocalDate endDate, Status status){
+        this.budgetID = budgetID;
+        this.userID = userID;
+        this.name = name;
+        this.category = category;
+        this.budgetAmount = budgetAmount;
+        this.budgetSpent = budgetSpent;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
     }
 
+    public Budget(){}
 
-    public static void addToCurrentExpenses(String userLogin, String category, double amount) {
+    public double getRemaining(){
+        return budgetAmount - budgetSpent;
     }
+
 }

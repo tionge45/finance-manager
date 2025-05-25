@@ -38,15 +38,17 @@ public class FinanceDatabase {
                 +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 +")";
 
-        String budgetTable = "CREATE TABLE IF NOT EXISTS budget_goals ("
-                +"goalID INT AUTO_INCREMENT PRIMARY KEY,"
-                +"userLogin VARCHAR(255) NOT NULL,"
+        String budgetTable = "CREATE TABLE IF NOT EXISTS budgets ("
+                +"budgetID INT AUTO_INCREMENT PRIMARY KEY,"
+                +"userID INT NOT NULL,"
+                +"name VARCHAR(80) NOT NULL,"
                 +"category VARCHAR(255) NOT NULL,"
                 +"budgetAmount DOUBLE PRECISION NOT NULL,"
+                +"budgetSpent DOUBLE PRECISION NOT NULL DEFAULT 0,"
                 +"startDate DATE NOT NULL,"
                 +"endDate DATE NOT NULL,"
-                +"status VARCHAR(50) DEFAULT 'In Progress',"
-                +"FOREIGN KEY (userLogin) REFERENCES Users(userName) ON DELETE CASCADE"
+                +"status ENUM('ACTIVE', 'EXCEEDED', 'ARCHIVED') DEFAULT 'ACTIVE',"
+                +"FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE"
                 +")";
 
 
