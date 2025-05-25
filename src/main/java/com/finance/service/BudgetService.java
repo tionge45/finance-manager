@@ -42,7 +42,10 @@ public class BudgetService {
     public void registerExpense(int budgetId, double amount) throws SQLException {
         dao.updateAmountSpent(budgetId, amount);
 
-        Optional<Budget> bOpt = dao.findByUser(0)  // Replace `0` with actual userId in practice
+        UserSessionSingleton.getInstance();
+        String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
+
+        Optional<Budget> bOpt = dao.findByUser(userEmail)
                 .stream()
                 .filter(b -> b.getBudgetID() == budgetId)
                 .findFirst();
@@ -56,7 +59,14 @@ public class BudgetService {
         }
     }
 
-    public List<Budget> getAllBudgetsForUser(int userId) throws SQLException {
-        return dao.findByUser(userId);
+    public List<Budget> getAllBudgetsForUser() throws SQLException {
+        UserSessionSingleton.getInstance();
+        String email = UserSessionSingleton.getLoggedInUser().getUserEmail();
+        return dao.findByUser(email);
     }
+
+    public void insertBudget(Budget b) throws SQLException {
+        dao.insertBudget(b);
+    }
+
 }

@@ -5,12 +5,15 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class BudgetDAO {
 
     private final Connection conn;
 
     public BudgetDAO(Connection conn) { this.conn = conn; }
+
+    private static final Logger LOGGER = Logger.getLogger(BudgetDAO.class.getName());
 
 
     public void insertBudget(Budget b) throws SQLException {
@@ -25,10 +28,16 @@ public class BudgetDAO {
         }
     }
 
-    public List<Budget> findByUser(int userId) throws SQLException {
-        String sql = "SELECT * FROM budgets WHERE userID = ? AND status <> 'ARCHIVED' ORDER BY endDate";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
+    public List<Budget> findByUser(String userEmail) throws SQLException {
+        String findQuery = "SELECT b.budgetID, b.userID, b.name, b.category, b.budgetAmount, b.budgetSpent, b.startDate, " +
+                "b.endDate, b.status " +
+                "FROM budgets b " +
+                "JOIN Users u ON b.userID = u.userID " +
+                "WHERE u.userEmail = ? " +
+                "AND b.status <> 'ARCHIVED' ORDER BY b.endDate ";
+
+        try (PreparedStatement ps = conn.prepareStatement(findQuery)) {
+            ps.setString(1, userEmail);
             return extractList(ps.executeQuery());
         }
     }
@@ -54,6 +63,7 @@ public class BudgetDAO {
 
     private static void mapForInsert(PreparedStatement ps, Budget b) throws SQLException {
         ps.setInt   (1,  b.getUserID());
+        System.out.println("Inserting budget for userID: " + b.getUserID());
         ps.setString(2,  b.getName());
         ps.setString(3,  b.getCategory());
         ps.setDouble(4,  b.getBudgetAmount());
@@ -139,6 +149,33 @@ public class BudgetDAO {
                 Budget.Status.valueOf(rs.getString("status"))
         );
     }
+
+    public void deleteBudgetByEmail(String userEmail) throws SQLException {
+        String findQuery = "DELETE b.budgetID, b.userID, b.name, b.category, b.budgetAmount, b.budgetSpent, b.startDate, " +
+                "b.endDate, b.status " +
+                "FROM budgets b " +
+                "JOIN Users u ON b.userID = u.userID " +
+                "WHERE u.userEmail = ? " +
+                "AND b.status <> 'ARCHIVED' ORDER BY b.endDate ";
+
+        try (PreparedStatement ps = conn.prepareStatement(findQuery)) {
+            ps.setString(1, userEmail);
+            ps.executeUpdate();
+        }
+    }
+
+    public void deleteBudgetById(int budgetId) throws SQLException {
+        String sql = "DELETE FROM budgets WHERE budgetID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, budgetId);
+            ps.executeUpdate();
+        }
+    }
+
+
+
+    public void updateBudgetStatus(int budgetID){}
+
 
 
 }

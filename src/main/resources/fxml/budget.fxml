@@ -1,10 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.BudgetController">
+<VBox prefHeight="716.0" prefWidth="1114.0" spacing="20" styleClass="budget-container" stylesheets="@css/budget_styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.BudgetController">
 
-    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="56.0" prefWidth="57.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" styleClass="sidebar-toggle" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+
+    <!-- Header Section -->
+    <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-box">
+        <Label prefHeight="99.0" prefWidth="211.0" text="Your Budgets">
+         <styleClass>
+            <String fx:value="header-title" />
+            <String fx:value="title" />
+            <String fx:value="title-label" />
+            <String fx:value="budget-container" />
+         </styleClass>
+         <stylesheets>
+            <URL value="@css/budget_styles.css" />
+            <URL value="@css/styles.css" />
+         </stylesheets></Label>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="addBudgetBtn" onAction="#handleAddBudget" prefHeight="60.0" prefWidth="63.0" styleClass="icon-button" text="➕">
+         <stylesheets>
+            <URL value="@css/budget_styles.css" />
+            <URL value="@css/styles.css" />
+         </stylesheets>
+        </Button>
+    </HBox>
+
+    <!-- Summary Cards -->
+    <HBox prefHeight="162.0" prefWidth="1074.0" spacing="15" styleClass="summary-container">
+        <!-- Total Budget Card -->
+        <VBox prefHeight="206.0" prefWidth="222.0" styleClass="summary-card">
+            <Label prefHeight="29.0" prefWidth="27.0" styleClass="summary-icon" text="💰" />
+            <Label fx:id="totalBudgetLabel" styleClass="summary-value" text="MONEY" />
+            <Label prefHeight="18.0" prefWidth="34.0" styleClass="summary-label" text="Total" />
+        </VBox>
+
+        <!-- Spent Card -->
+        <VBox prefHeight="206.0" prefWidth="222.0" styleClass="summary-card">
+            <Label prefHeight="26.0" prefWidth="27.0" styleClass="summary-icon" text="📉" />
+            <Label fx:id="totalSpentLabel" styleClass="summary-value" text="SPENT" />
+            <Label prefHeight="18.0" prefWidth="40.0" styleClass="summary-label" text="Spent" />
+        </VBox>
+
+        <!-- Active Card -->
+        <VBox prefHeight="109.0" prefWidth="136.0" styleClass="summary-card">
+            <Label prefHeight="26.0" prefWidth="22.0" styleClass="summary-icon" text="🔄" />
+            <Label prefHeight="46.0" prefWidth="90.0" styleClass="summary-value" stylesheets="@css/budget_styles.css" text="ACTIVE" />
+            <Label fx:id="activeBudgetLabel" styleClass="summary-value" text="ACTIVE" />
+        </VBox>
+    </HBox>
+
+    <!-- Budget List Section -->
+    <VBox fx:id="budgetListContainer" styleClass="list-container">
+        <Label text="Budgets">
+         <stylesheets>
+            <URL value="@css/budget_styles.css" />
+            <URL value="@css/styles.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="section-title" />
+            <String fx:value="title" />
+         </styleClass>
+        </Label>
+
+        <!-- Budget items dynamically added here... -->
+
+    </VBox>
+
+    <!-- Empty State (Visible when no budgets exist) -->
+    <VBox fx:id="emptyStateBox" alignment="CENTER" managed="false" styleClass="empty-state" visible="false">
+        <Label styleClass="empty-state-text" text="No budgets yet" />
+        <Button fx:id="createBudgetBtn" onAction="#handleAddBudget" prefHeight="50.0" prefWidth="230.0" styleClass="primary-button" text="Create Your First Budget">
+         <stylesheets>
+            <URL value="@css/budget_styles.css" />
+            <URL value="@css/styles.css" />
+         </stylesheets></Button>
+    </VBox>
+
 
 </VBox>

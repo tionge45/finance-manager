@@ -41,6 +41,8 @@ public class Budget {
         this.status = status;
     }
 
+    public Budget(){}
+
     public double getRemaining(){
         return budgetAmount - budgetSpent;
     }

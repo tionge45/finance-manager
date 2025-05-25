@@ -8,7 +8,7 @@
 
 <VBox prefHeight="832.0" prefWidth="1029.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.DashboardController">
 
-    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="59.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="109.0" prefWidth="62.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
 
 
     <HBox alignment="CENTER" prefHeight="521.0" prefWidth="1266.0" spacing="20">

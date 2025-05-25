@@ -3,10 +3,7 @@ package com.finance.database;
 import com.finance.model.User;
 import com.finance.model.PasswordUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAO {
 
@@ -22,7 +19,7 @@ public class UserDAO {
 
 
     //adds new User to Users table
-    public void addUser(String userName, String userEmail, String rawPassword) throws SQLException {
+    public User addUser(String userName, String userEmail, String rawPassword) throws SQLException {
 
         if (userName == null || userName.isEmpty() ||
                 rawPassword == null || rawPassword.isEmpty() ||
@@ -37,11 +34,21 @@ public class UserDAO {
         String hashedPassword = PasswordUtils.hashPassword(rawPassword);
         String query = "INSERT INTO Users(userName, hashedPassword, userEmail) VALUES (?, ?, ?)";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, userName);
             ps.setString(2, hashedPassword);
             ps.setString(3, userEmail);
             ps.executeUpdate();
+
+            try(ResultSet rs = ps.getGeneratedKeys()){
+                if(rs.next()){
+                    int userID = rs.getInt(1);
+                    return new User(userID, userName, userEmail, hashedPassword);
+                } else {
+                    throw new SQLException("Failed to retrieve generated userID");
+                }
+            }
+
         } catch (SQLException e) {
             if (e.getSQLState().equals("23000")) {
                 throw new IllegalArgumentException("Email address is already " +
@@ -61,17 +68,15 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                User user = new User();
-                user.setUserEmail(rs.getString("userEmail")); // ✅ This line is critical
-                user.setUserName(rs.getString("userName"));       // Optional
-                return user;
+                int userID = rs.getInt("userID");
+                String userName = rs.getString("userName");
+                String hashedPassword = rs.getString("hashedPassword");
+                return new User(userID, userName, userEmail, hashedPassword);
 
             }
         }
         return null;
     }
-
-
 
     public boolean authenticateUser(String userEmail, String rawPassword) {
         String query = "SELECT hashedPassword FROM Users WHERE userEmail = ?";
