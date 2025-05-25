@@ -40,6 +40,7 @@ public class BudgetItemController {
     }
 
     public void setBudget(Budget b) {
+        this.budget = b;
         nameLabel.setText(b.getName() != null ? b.getName() : "Untitled");
         amountLabel.setText(String.format("$%.2f", b.getBudgetAmount()));
         categoryLabel.setText("📂 " + b.getCategory());
@@ -66,9 +67,12 @@ public class BudgetItemController {
             budgetDAO = new BudgetDAO(connection);
             budgetDAO.deleteBudgetById(budgetID);
 
+
             if (onDeleteCallback != null) {
                 onDeleteCallback.run();
             }
+
+            LOGGER.info("Deleting budget ID: " + budgetID);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
