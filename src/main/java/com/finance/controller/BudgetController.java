@@ -51,7 +51,7 @@ public class BudgetController {
     }
 
 
-    private void loadBudgetsAndUpdateSummary(){
+    public void loadBudgetsAndUpdateSummary(){
         UserSessionSingleton.getInstance();
         String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
 

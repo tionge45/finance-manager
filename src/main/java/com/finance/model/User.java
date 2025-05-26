@@ -2,6 +2,7 @@ package com.finance.model;
 
 import java.util.Objects;
 
+import com.finance.utils.PasswordUtils;
 import lombok.Getter;
 import lombok.Setter;
 

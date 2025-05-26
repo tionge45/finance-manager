@@ -18,7 +18,7 @@
         <Label fx:id="remainingLabel" styleClass="budget-subitem" />
         <Label fx:id="messageLabel" styleClass="budget-subitem" />
 
-        <Button fx:id="deleteButton" text="🗑" onAction="#handleDeleteBudget" styleClass="delete-button" />
+        <Button fx:id="deleteButton" onAction="#handleDeleteBudget" prefHeight="31.0" prefWidth="29.0" styleClass="delete-button" text="🗑" />
 
     </HBox>
 </VBox>

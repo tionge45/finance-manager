@@ -1,4 +1,4 @@
-package com.finance.model;
+package com.finance.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 
