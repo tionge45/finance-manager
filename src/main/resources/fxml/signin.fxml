@@ -30,6 +30,8 @@
 
             <Hyperlink onAction="#goToSignUp" text="Create an Account" />
 
+            <Hyperlink onAction="#handleYandexLogin" text="Sign in with Yandex" />
+
         </VBox>
     </VBox>
 
