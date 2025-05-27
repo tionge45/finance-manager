@@ -22,6 +22,7 @@
             <URL value="@css/budget_styles.css" />
             <URL value="@css/styles.css" />
          </stylesheets></Label>
+
         <Region HBox.hgrow="ALWAYS" />
         <Button fx:id="addBudgetBtn" onAction="#handleAddBudget" prefHeight="60.0" prefWidth="63.0" styleClass="icon-button" text="➕">
          <stylesheets>

@@ -2,6 +2,7 @@ package com.finance.model;
 
 import java.util.Objects;
 
+import com.finance.utils.PasswordUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,9 @@ public class User {
     }
 
     public User(){};
+
+    public User(String id, String login, String email) {
+    }
 
     @Override
     public boolean equals(Object obj){

@@ -1,7 +1,7 @@
 package com.finance.database;
 
 import com.finance.model.User;
-import com.finance.model.PasswordUtils;
+import com.finance.utils.PasswordUtils;
 
 import java.sql.*;
 

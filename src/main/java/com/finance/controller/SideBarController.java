@@ -60,6 +60,8 @@ public class SideBarController {
         }
         else if(loader.getController() instanceof BudgetController budgetController){
             budgetController.setSideBarController(this);
+        } else if(loader.getController() instanceof ReportController reportController){
+            reportController.setSideBarController(this);
         }
 
     }

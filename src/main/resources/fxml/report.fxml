@@ -1,15 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="700.0" prefWidth="850.0"
-      stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.ReportController">
+<VBox prefHeight="716.0" prefWidth="1114.0" spacing="20" styleClass="budget-container" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.ReportController">
 
-    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" style="-fx-alignment: center;" styleClass="sidebar-toggle" stylesheets="@css/styles.css" text="☰" />
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-box">
+        <Label prefHeight="77.0" prefWidth="350.0" text="     Your Reports">
+         <stylesheets>
+            <URL value="@css/budget_styles.css" />
+            <URL value="@css/styles.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="header-title title" />
+            <String fx:value="summary-value" />
+            <String fx:value="title" />
+         </styleClass></Label>
+      <Label layoutX="10.0" layoutY="10.0" prefHeight="155.0" prefWidth="207.0" text="     ">
+         <stylesheets>
+            <URL value="@css/budget_styles.css" />
+            <URL value="@css/styles.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="header-title title" />
+            <String fx:value="summary-value" />
+            <String fx:value="title" />
+         </styleClass>
+      </Label>
+      <Label layoutX="237.0" layoutY="10.0" prefHeight="77.0" prefWidth="735.0" style="-fx-background-color: calibri;" stylesheets="@css/styles.css" text="Here you can easily view or download your financial reports in one click!">
+         <effect>
+            <Bloom />
+         </effect>
+         <styleClass>
+            <String fx:value="summary-value" />
+            <String fx:value="text-field" />
+         </styleClass>
+      </Label>
+    </HBox>
+
+    <!-- Filter Section -->
+    <HBox alignment="CENTER_LEFT" prefHeight="184.0" prefWidth="1114.0" spacing="10">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+        <Label text="From:" />
+        <DatePicker fx:id="startDatePicker" style="-fx-border-color: #2c3e50;" stylesheets="@css/styles.css" />
+        <Label text="To:" />
+        <DatePicker fx:id="endDatePicker" style="-fx-border-color: #2c3e50;" stylesheets="@css/styles.css" />
+
+        <Label text="Type:" />
+        <ComboBox fx:id="reportTypeComboBox" prefHeight="54.0" prefWidth="60.0" stylesheets="@css/styles.css">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="INCOME" />
+                    <String fx:value="EXPENSE" />
+                    <String fx:value="COMBINED" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Button fx:id="viewBtn" onAction="#handleViewReport" prefHeight="57.0" prefWidth="142.0" stylesheets="@css/styles.css" text="View Report" />
+        <Button fx:id="generateBtn" onAction="#handleGenerateReport" prefHeight="60.0" prefWidth="162.0" stylesheets="@css/styles.css" text="Generate PDF" />
+    </HBox>
+
+    <!-- Report Display -->
+    <ScrollPane fx:id="reportScroll" fitToHeight="true" fitToWidth="true" prefHeight="500.0">
+        <VBox fx:id="reportContent" prefHeight="397.0" prefWidth="1094.0" spacing="5" />
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+    </ScrollPane>
+
 </VBox>

@@ -1,39 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import java.net.URL?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<HBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.finance.controller.SignUpController"
-      prefHeight="600.0" prefWidth="800.0"
-      stylesheets="@css/styles.css">
+<HBox prefHeight="600.0" prefWidth="800.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.SignUpController">
 
 
-    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" >
-        <Label text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" stylesheets="@css/styles.css">
+        <Label text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-title "/>
+        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-title "/>
+        <TextField fx:id="emailField" prefHeight="36.0" prefWidth="534.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="form-title "/>
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="form-title "/>
+        <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Button text="Sign Up" fx:id="signUpButton" onAction="#handleSignUp" GridPane.columnIndex="1"
-                GridPane.rowIndex="5"/>
+        <Button fx:id="signUpButton" onAction="#handleSignUp" text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-        <Hyperlink text="Log in instead" onAction="#goToSignIn" layoutX="200" layoutY="250"/>
+        <Hyperlink layoutX="200" layoutY="250" onAction="#goToSignIn" text="Log in instead" />
     </VBox>
 
     <!--right side -->
@@ -45,4 +36,3 @@
 
 
 </HBox>
-

@@ -8,20 +8,26 @@
 
     <!--left side -->
 
-    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
-        <VBox alignment="CENTER" prefHeight="270.0" prefWidth="405.0" spacing="10" styleClass="form-card">
+    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS"  stylesheets="@css/styles.css">
+        <VBox alignment="CENTER" prefHeight="533.0" prefWidth="534.0" spacing="10" styleClass="form-card">
 
             <Label styleClass="title-label" text="Sign In" />
 
-            <Label text="Email:" />
-            <TextField fx:id="emailField" prefHeight="36.0" prefWidth="100.0" />
+            <Label text="Email:" styleClass="form-title "/>
+            <TextField fx:id="emailField" prefHeight="36.0" prefWidth="50.0" styleClass="@css/styles.css" />
 
-            <Label text="Password:" />
-            <PasswordField fx:id="passwordField" prefHeight="36.0" prefWidth="100.0" />
+            <Label text="Password:" styleClass="form-title " />
+            <PasswordField fx:id="passwordField" prefHeight="36.0" prefWidth="50.0" stylesheets="@css/styles.css" />
 
             <Button fx:id="signInButton" onAction="#handleSignIn" text="Sign In" />
 
             <Hyperlink onAction="#goToSignUp" text="Create an Account" />
+            <ImageView fitHeight="45.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@images/yandex_logotip.png" />
+            </ImageView>
+
+            <Hyperlink onAction="#handleYandexLogin" text="Sign in with Yandex">
+            </Hyperlink>
 
             <Hyperlink onAction="#handleYandexLogin" text="Sign in with Yandex" />
 
@@ -29,7 +35,7 @@
     </VBox>
 
     <!--right side -->
-    <StackPane fx:id="rightPane" prefWidth="266" style="-fx-background-color: #3498db;">
+    <StackPane fx:id="rightPane" prefHeight="600.0" prefWidth="327.0" style="-fx-background-color: #3498db;">
         <ImageView fitHeight="150.0" fitWidth="800.0" preserveRatio="true">
             <Image url="@images/logo.png" />
         </ImageView>

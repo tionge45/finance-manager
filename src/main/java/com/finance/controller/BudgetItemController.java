@@ -70,6 +70,9 @@ public class BudgetItemController {
                 onDeleteCallback.run();
             }
 
+           BudgetController budgetController = new BudgetController();
+           budgetController.loadBudgetsAndUpdateSummary();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
