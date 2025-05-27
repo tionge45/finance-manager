@@ -1,7 +1,10 @@
 package com.finance.controller;
 
+import com.finance.auth.YandexSignIn;
+import com.finance.auth.YandexUser;
 import com.finance.database.FinanceDatabase;
 import com.finance.database.UserDAO;
+import com.finance.database.YandexAuthDAO;
 import com.finance.model.User;
 import com.finance.service.UserSessionSingleton;
 import com.finance.utils.SceneSwitcher;
@@ -51,6 +54,28 @@ public class SignInController {
                 showAlert("Error", "Invalid email or password.");
             }
     }
+    @FXML
+    private void handleYandexLogin(ActionEvent event) {
+        try {
+            YandexSignIn yandexSignIn = new YandexSignIn();
+            yandexSignIn.loginWithYandex();
+            
+            YandexUser yandexUser = YandexAuthDAO.findUserByEmail(yandexSignIn.getAuthenticatedEmail());
+
+            if (yandexUser != null) {
+                User user = new User(yandexUser.getId(), yandexUser.getLogin(), yandexUser.getEmail());
+                UserSessionSingleton.setLoggedInUser(user);
+                showAlert("Success", "Yandex Login successful!");
+                goToDashboard();
+            } else {
+                showAlert("Login Error", "User not found after Yandex login.");
+            }
+        } catch (Exception e) {
+            showAlert("Login Error", "Failed to complete Yandex OAuth flow.");
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void goToSignUp(ActionEvent event) {
