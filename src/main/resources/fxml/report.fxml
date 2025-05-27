@@ -9,6 +9,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -39,11 +40,13 @@
             <String fx:value="title" />
          </styleClass>
       </Label>
-      <Label layoutX="237.0" layoutY="10.0" prefHeight="105.0" prefWidth="843.0" stylesheets="@css/budget_styles.css" text="Here you can easily view or download your financial reports in one click!">
+      <Label layoutX="237.0" layoutY="10.0" prefHeight="77.0" prefWidth="735.0" style="-fx-background-color: calibri;" stylesheets="@css/styles.css" text="Here you can easily view or download your financial reports in one click!">
+         <effect>
+            <Bloom />
+         </effect>
          <styleClass>
             <String fx:value="summary-value" />
-            <String fx:value="summary-value" />
-            <String fx:value="title" />
+            <String fx:value="text-field" />
          </styleClass>
       </Label>
     </HBox>

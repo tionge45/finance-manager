@@ -71,6 +71,7 @@
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
     -fx-padding: 6px;
+    -fx-max-width: 150px;
 }
 
 /* Hyperlinks */
@@ -218,8 +219,6 @@
 }
 
 
-
-
 .loading-slogan {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -278,6 +277,8 @@
 .form-title {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #3498db;
+
 }
 
