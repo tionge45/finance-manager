@@ -26,6 +26,8 @@
             <Hyperlink onAction="#handleYandexLogin" text="Sign in with Yandex">
             </Hyperlink>
 
+            <Hyperlink onAction="#handleYandexLogin" text="Sign in with Yandex" />
+
         </VBox>
     </VBox>
 

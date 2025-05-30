@@ -18,8 +18,8 @@ import java.net.URI;
 
 public class YandexSignIn {
 
-    private static final String CLIENT_ID = "8281bfd4858040939e5785fd2e3269da";
-    private static final String CLIENT_SECRET = "335ea75c4b554036a87f691c66d37980";
+    private static final String CLIENT_ID = "";
+    private static final String CLIENT_SECRET = "";
     private static final String REDIRECT_URI = "http://localhost:8080/callback";
     private String authenticatedEmail;
 
