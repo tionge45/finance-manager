@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="716.0" prefWidth="1114.0" spacing="20" styleClass="budget-container" stylesheets="@css/budget_styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.BudgetController">
-
-    <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" styleClass="sidebar-toggle" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+<VBox prefHeight="716.0" prefWidth="1114.0" spacing="20" styleClass="report-content-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.BudgetController">
 
     <!-- Header Section -->
     <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-box">
-        <Label prefHeight="99.0" prefWidth="211.0" text="Your Budgets">
+   
+       <Button fx:id="sideBarBtn" onAction="#handleToggleSidebar" prefHeight="55.0" prefWidth="58.0" styleClass="sidebar-toggle" stylesheets="@css/styles.css" text="☰" textAlignment="RIGHT" />
+        <Label prefHeight="99.0" prefWidth="211.0" style="-fx-background-color: #ecf6fd;" text="Your Budgets">
          <styleClass>
             <String fx:value="header-title" />
             <String fx:value="title" />
@@ -36,23 +39,23 @@
     <HBox prefHeight="162.0" prefWidth="1074.0" spacing="15" styleClass="summary-container">
         <!-- Total Budget Card -->
         <VBox prefHeight="206.0" prefWidth="222.0" styleClass="summary-card">
-            <Label prefHeight="29.0" prefWidth="27.0" styleClass="summary-icon" text="💰" />
+            <Label prefHeight="49.0" prefWidth="45.0" styleClass="summary-icon" text="💰" />
             <Label fx:id="totalBudgetLabel" styleClass="summary-value" text="MONEY" />
             <Label prefHeight="18.0" prefWidth="34.0" styleClass="summary-label" text="Total" />
         </VBox>
 
         <!-- Spent Card -->
         <VBox prefHeight="206.0" prefWidth="222.0" styleClass="summary-card">
-            <Label prefHeight="26.0" prefWidth="27.0" styleClass="summary-icon" text="📉" />
+            <Label prefHeight="47.0" prefWidth="39.0" styleClass="summary-icon" text="📉" />
             <Label fx:id="totalSpentLabel" styleClass="summary-value" text="SPENT" />
             <Label prefHeight="18.0" prefWidth="40.0" styleClass="summary-label" text="Spent" />
         </VBox>
 
         <!-- Active Card -->
         <VBox prefHeight="109.0" prefWidth="136.0" styleClass="summary-card">
-            <Label prefHeight="26.0" prefWidth="22.0" styleClass="summary-icon" text="🔄" />
-            <Label prefHeight="46.0" prefWidth="90.0" styleClass="summary-value" stylesheets="@css/budget_styles.css" text="ACTIVE" />
-            <Label fx:id="activeBudgetLabel" styleClass="summary-value" text="ACTIVE" />
+            <Label prefHeight="52.0" prefWidth="44.0" styleClass="summary-icon" text="🔄" />
+            <Label prefHeight="29.0" prefWidth="90.0" styleClass="summary-value" stylesheets="@css/budget_styles.css" text="ACTIVE" />
+            <Label fx:id="activeBudgetLabel" styleClass="summary-value" />
         </VBox>
     </HBox>
 
@@ -82,6 +85,10 @@
             <URL value="@css/styles.css" />
          </stylesheets></Button>
     </VBox>
+   <stylesheets>
+      <URL value="@css/budget_styles.css" />
+      <URL value="@css/report.css" />
+   </stylesheets>
 
 
 </VBox>

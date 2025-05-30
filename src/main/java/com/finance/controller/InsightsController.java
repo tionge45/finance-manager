@@ -143,7 +143,7 @@ public class InsightsController {
 
     private void renderPie(double income, double expense) {
         var data = FXCollections.<PieChart.Data>observableArrayList();
-        if (income  > 0) data.add(new PieChart.Data("Income",  income));   // ★ skip zero slices
+        if (income  > 0) data.add(new PieChart.Data("Income",  income));
         if (expense > 0) data.add(new PieChart.Data("Expense", expense));
 
         incomeExpensePie.setData(data);
@@ -151,8 +151,14 @@ public class InsightsController {
         double net = income - expense;
         netIncomeLabel.setText(String.format("Net Income: %s%.2f",
                 net >= 0 ? "+" : "-", Math.abs(net)));
+        Platform.runLater(() -> {
+            for(PieChart.Data d : data){
+                d.getNode().setStyle("-fx-pie-color: " + (
+                        d.getName().equalsIgnoreCase("Income") ?  "#3498db" : "#2c3e50"
+                        ) + ";");
+            }
+        });
     }
-
 
     public void setSideBarController(SideBarController sideBarController) {
         this.sideBarController = sideBarController;

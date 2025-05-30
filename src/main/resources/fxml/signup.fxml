@@ -4,23 +4,16 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="600.0" prefWidth="800.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.SignUpController">
+<HBox prefHeight="600.0" prefWidth="800.0" stylesheets="@css/sign_in_up_styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.SignUpController">
 
 
-    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" stylesheets="@css/styles.css">
-        <Label text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" stylesheets="@css/sign_in_up_styles.css" HBox.hgrow="ALWAYS">
+        <Label styleClass="form-title " stylesheets="@css/styles.css" text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-title "/>
-        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-title "/>
-        <TextField fx:id="emailField" prefHeight="36.0" prefWidth="534.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="form-title "/>
-        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-        <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="form-title "/>
-        <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="usernameField" promptText="Username 🚹" styleClass="text-field:focused" />
+        <TextField fx:id="emailField" promptText="Email 📧" prefHeight="36.0" prefWidth="534.0" styleClass="text-field:focused" />
+        <PasswordField fx:id="passwordField" promptText="Password 🔐"  styleClass="password-field"/>
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password 🔐"  styleClass="password-field" />
 
         <Button fx:id="signUpButton" onAction="#handleSignUp" text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 

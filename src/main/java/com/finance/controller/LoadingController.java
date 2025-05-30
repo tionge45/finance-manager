@@ -4,9 +4,11 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import com.finance.utils.SceneSwitcher;
+import javafx.scene.layout.AnchorPane;
 
 public class LoadingController {
 
+    public AnchorPane loadingPane;
     @FXML
     private ProgressBar progressBar;
 

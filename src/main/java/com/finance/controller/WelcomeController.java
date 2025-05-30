@@ -21,6 +21,7 @@ public class WelcomeController {
     public VBox leftPane;
     public StackPane rightPane;
     public ImageView logoImage;
+    public ImageView backgroundImage;
     @FXML private Button signUpButton;
     @FXML private Button signInButton;
 

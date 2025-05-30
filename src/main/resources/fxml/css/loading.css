@@ -1,6 +1,7 @@
 /* Loading Screen Container */
 .loading-screen {
-    -fx-background-color: #0D4F8B; /* Dark Blue */
+    -fx-background-color: #3498db;
+    -fx-font-family: "Inter", sans-serif;
 }
 
 /* Progress Bar Styling */

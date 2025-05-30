@@ -7,19 +7,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="515.0" prefWidth="423.0" spacing="10" stylesheets="@css/styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.finance.controller.AddBudgetController">
+<VBox alignment="CENTER" prefHeight="515.0" prefWidth="423.0" spacing="10" style="-fx-background-color: #ecf6fd;" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.AddBudgetController">
 
-    <Label prefHeight="34.0" prefWidth="219.0" styleClass="form-title" text="Create New Budget">
+    <Label prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: #ecf6fd;" styleClass="form-title" text="Create New Budget" textAlignment="CENTER">
       <stylesheets>
          <URL value="@css/styles.css" />
          <URL value="@css/budget_styles.css" />
-      </stylesheets></Label>
+      </stylesheets>
+    </Label>
 
-          <TextField fx:id="nameField" prefHeight="36.0" prefWidth="346.0" promptText="Name" stylesheets="@css/styles.css" />
-    <TextField fx:id="categoryField" promptText="Category" stylesheets="@css/budget_styles.css" />
+    <TextField fx:id="nameField" prefHeight="36.0" prefWidth="346.0" promptText="Name" stylesheets="@css/budget_styles.css" />
+    <TextField fx:id="categoryField" maxWidth="166.0" prefHeight="38.0" prefWidth="166.0" promptText="Category" stylesheets="@css/budget_styles.css" />
     <TextField fx:id="amountField" promptText="Amount" />
     <DatePicker fx:id="startDatePicker" prefHeight="48.0" prefWidth="190.0" promptText="Start Date" />
-    <DatePicker fx:id="endDatePicker" prefHeight="23.0" prefWidth="191.0" promptText="End Date" />
+    <DatePicker fx:id="endDatePicker" prefHeight="23.0" prefWidth="191.0" promptText="End Date" stylesheets="@css/budget_styles.css" />
 
     <Button onAction="#handleSaveBudget" text="Save" />
 </VBox>
