@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="806.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.LoadingController">
+<AnchorPane fx:id = "loadingPane" styleClass="loading-screen" prefHeight="806.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.LoadingController">
 
     <stylesheets>
         <URL value="@css/loading.css" />

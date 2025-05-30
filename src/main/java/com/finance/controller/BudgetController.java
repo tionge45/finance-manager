@@ -51,11 +51,11 @@ public class BudgetController {
     }
 
 
-    public void loadBudgetsAndUpdateSummary(){
+    public void loadBudgetsAndUpdateSummary() {
         UserSessionSingleton.getInstance();
         String userEmail = UserSessionSingleton.getLoggedInUser().getUserEmail();
 
-        try{
+        try {
             connection = FinanceDatabase.getConnection();
             budgetDAO = new BudgetDAO(connection);
             List<Budget> budgets = budgetDAO.findByUser(userEmail);
@@ -64,10 +64,10 @@ public class BudgetController {
             double totalSpent = 0;
             double activeCount = 0;
 
-            for(Budget b: budgets){
+            for (Budget b : budgets) {
                 totalBudget += b.getBudgetAmount();
                 totalSpent += b.getBudgetSpent();
-                if(b.getStatus() == Budget.Status.ACTIVE){
+                if (b.getStatus() == Budget.Status.ACTIVE) {
                     activeCount++;
                 }
             }
@@ -78,14 +78,17 @@ public class BudgetController {
 
             budgetListContainer.getChildren().clear();
 
-            if (budgets.isEmpty()){
+            if (budgets.isEmpty()) {
                 emptyStateBox.setVisible(true);
-                emptyStateBox.setManaged(budgets.isEmpty());
+                emptyStateBox.setManaged(true);
             } else {
+                emptyStateBox.setVisible(false);
+                emptyStateBox.setManaged(false);
+
                 Map<String, List<Budget>> groupedBudgets = budgets.stream()
                         .collect(Collectors.groupingBy(Budget::getCategory));
-                for(Map.Entry<String, List<Budget>> entry : groupedBudgets.entrySet()){
 
+                for (Map.Entry<String, List<Budget>> entry : groupedBudgets.entrySet()) {
                     String category = entry.getKey();
                     List<Budget> categoryBudgets = entry.getValue();
 
@@ -100,36 +103,20 @@ public class BudgetController {
 
                             BudgetItemController controller = loader.getController();
                             controller.setBudget(b);
+                            controller.setOnDeleteCallback(this::loadBudgetsAndUpdateSummary);
 
                             budgetListContainer.getChildren().add(budgetItem);
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            throw new RuntimeException("Failed to load budget item", e);
                         }
                     }
                 }
-
-                }
-                for (Budget b: budgets){
-                    try{
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/budget_item.fxml"));
-                        VBox budgetItem = loader.load();
-
-                        BudgetItemController controller = loader.getController();
-                        controller.setBudget(b);
-                        controller.setOnDeleteCallback(this::loadBudgetsAndUpdateSummary);
-
-
-
-                        budgetListContainer.getChildren().add(budgetItem);
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            } catch (SQLException e) {
-            throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error loading budgets", e);
         }
     }
+
 
 
     public void setSideBarController(SideBarController sideBarController) {

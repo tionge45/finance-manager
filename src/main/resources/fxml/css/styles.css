@@ -1,7 +1,12 @@
 
 .root {
     -fx-font-family: "Segoe UI", sans-serif;
-    -fx-background-color: #f4f4f4;
+    -fx-background-color: #3498db;
+}
+
+.dashboard-root {
+    -fx-background-color: linear-gradient(to bottom right, #ecf6fd, #ffffff);
+    -fx-padding: 20px;
 }
 
 /* Labels */
@@ -34,7 +39,12 @@
     -fx-background-radius: 12px;
     -fx-padding: 15px;
     -fx-effect: dropshadow(gaussian, rgba(46, 134, 193, 0.1), 10, 0.5, 0, 2);
+    -fx-min-width: 400px;
+    -fx-max-width: infinity;
+    -fx-min-height: 300px;
+    -fx-max-height: infinity;
 }
+
 
 .chart-title {
     -fx-text-fill: #2c3e50;
@@ -279,6 +289,5 @@
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
     -fx-background-color: #3498db;
-
 }
 

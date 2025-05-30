@@ -4,24 +4,21 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="600.0" prefWidth="800.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.SignInController">
+<HBox prefHeight="600.0" prefWidth="800.0" stylesheets="@css/sign_in_up_styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finance.controller.SignInController">
 
     <!--left side -->
 
-    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" HBox.hgrow="ALWAYS"  stylesheets="@css/styles.css">
+    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white;" stylesheets="@css/sign_in_up_styles.css" HBox.hgrow="ALWAYS">
         <VBox alignment="CENTER" prefHeight="533.0" prefWidth="534.0" spacing="10" styleClass="form-card">
 
-            <Label styleClass="title-label" text="Sign In" />
+            <Label styleClass="form-title" stylesheets="@css/styles.css" text="Sign In" />
 
-            <Label text="Email:" styleClass="form-title "/>
-            <TextField fx:id="emailField" prefHeight="36.0" prefWidth="50.0" styleClass="@css/styles.css" />
-
-            <Label text="Password:" styleClass="form-title " />
-            <PasswordField fx:id="passwordField" prefHeight="36.0" prefWidth="50.0" stylesheets="@css/styles.css" />
+            <TextField fx:id="emailField" promptText="Email 📧" prefHeight="36.0" prefWidth="50.0" styleClass="text-field:focused" />
+            <PasswordField fx:id="passwordField" promptText="Password 🔐" prefHeight="36.0" prefWidth="50.0" styleClass="password-field"/>
 
             <Button fx:id="signInButton" onAction="#handleSignIn" text="Sign In" />
-
             <Hyperlink onAction="#goToSignUp" text="Create an Account" />
+
             <ImageView fitHeight="45.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@images/yandex_logotip.png" />
             </ImageView>

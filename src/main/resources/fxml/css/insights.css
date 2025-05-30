@@ -1,0 +1,49 @@
+.root {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.pie-section {
+    -fx-alignment: center;
+    -fx-padding: 20px;
+}
+
+.chart-pie {
+    -fx-padding: 20px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(46, 134, 193, 0.1), 10, 0.5, 0, 2);
+    -fx-pie-label-visible: true;
+    -fx-start-angle: 90;
+}
+
+.chart-pie .default-color0 {
+    -fx-pie-color: #3498db; /* Light blue */
+}
+
+.chart-pie .default-color1 {
+    -fx-pie-color: #5dade2; /* Slightly darker blue */
+}
+
+.chart-pie .default-color2 {
+    -fx-pie-color: #85c1e9;
+}
+
+.chart-pie .data:hover {
+    -fx-pie-color: derive(-fx-pie-color, -15%);
+}
+
+.net-income-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 12px 20px;
+    -fx-background-color: #ecf6fd;
+    -fx-background-radius: 8px;
+}
+
+.time-range-choicebox {
+    -fx-background-color: #f9f9f9;
+    -fx-font-size: 14px;
+    -fx-padding: 6px;
+    -fx-border-radius: 6px;
+}

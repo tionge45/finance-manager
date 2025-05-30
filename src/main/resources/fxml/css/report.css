@@ -1,0 +1,70 @@
+/* Container Styling */
+.report-content-root {
+    -fx-background-color: linear-gradient(to bottom right, #ecf6fd, #ffffff);
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+}
+
+.budget-container {
+    -fx-padding: 20px;
+    -fx-background-color: -fx-background;
+}
+
+/* Input Fields */
+.text-field,
+.choice-box,
+.date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 3, 0.2, 0, 1);
+}
+
+.text-field:focused,
+.choice-box:focused,
+.date-picker:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 6, 0.4, 0, 1);
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0.3, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Title and Label Styling */
+.header-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.report-intro-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #5d6d7e;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #34495e;
+}
+
+/* Scroll pane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
